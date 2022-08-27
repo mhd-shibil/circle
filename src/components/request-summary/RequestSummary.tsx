@@ -24,7 +24,7 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
 
   console.log(agentId);
 
-  const [createQuotation, { data, loading }] = useMutation(createQuotationMutation);
+  const [createQuotation, { data, loading, error }] = useMutation(createQuotationMutation);
 
   const getFormattedTime = (input: string) => {
     const time = new Date(input);
@@ -38,6 +38,13 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
       toast.success('Quotation Sent');
     }
   }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      onClose();
+      toast.error(error.message);
+    }
+  }, [error]);
 
   const handleUpload = async (data) => {
     await fetch(data.getPresignedUrl.url, {
