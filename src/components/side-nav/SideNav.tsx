@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
-import { navItems } from 'constants/navigation';
+import { navItems, userNavOptions } from 'constants/navigation';
 
 type SideNavProps = {
   className?: string;
@@ -29,6 +29,9 @@ const NavItem: React.FC<NavItemProps> = ({ active, className, label, target }) =
 const SideNav: React.FC<SideNavProps> = ({ className, children }) => {
   const location = useLocation();
 
+  const isUser = location?.pathname?.includes('/user');
+  const navigationItems = isUser ? userNavOptions : navItems;
+
   return (
     <div className={`bg-white w-[273px] h-screen absolute shadow ${className}`}>
       {children}
@@ -37,7 +40,7 @@ const SideNav: React.FC<SideNavProps> = ({ className, children }) => {
           <img src='icons/travel.png' alt='Logo' width='35px' height='35px' />
           <span className='ml-4'>Circle</span>
         </div>
-        {navItems.map((item, index) => (
+        {navigationItems.map((item, index) => (
           <NavItem key={index} label={item.label} target={item.path} active={location.pathname === item.path} />
         ))}
       </div>
