@@ -1,13 +1,13 @@
 const newRequestTableHeaders = [
   {
     label: 'Date & Time',
-    value: 'date',
+    value: 'createdAt',
     type: 'date',
     width: '25%'
   },
   {
-    label: 'Id',
-    value: 'id',
+    label: 'Pick Up',
+    value: 'pickUpPoint',
     width: '25%'
   },
   {
@@ -16,8 +16,8 @@ const newRequestTableHeaders = [
     width: '25%'
   },
   {
-    label: 'Amount',
-    value: 'amount',
+    label: 'Budget',
+    value: 'budget',
     width: '25%'
   }
 ];
@@ -25,13 +25,13 @@ const newRequestTableHeaders = [
 const respondedTableHeaders = [
   {
     label: 'Date & Time',
-    value: 'date',
+    value: 'createdAt',
     type: 'date',
     width: '25%'
   },
   {
-    label: 'Id',
-    value: 'id',
+    label: 'Pick Up',
+    value: 'pickUpPoint',
     width: '25%'
   },
   {
@@ -40,8 +40,8 @@ const respondedTableHeaders = [
     width: '25%'
   },
   {
-    label: 'Amount',
-    value: 'amount',
+    label: 'Budget',
+    value: 'budget',
     width: '25%'
   }
 ];
