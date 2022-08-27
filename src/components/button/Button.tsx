@@ -10,6 +10,8 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 const ButtonStyles = {
   [ButtonType.BLUE]: 'bg-PRIMARY_BLUE text-white',
   [ButtonType.GREY]: 'bg-SECONDARY_GREY text-PRIMARY_BLUE',
+  [ButtonType.GREEN]: 'bg-green-500 text-white',
+  [ButtonType.YELLOW]: 'bg-yellow-500 text-white',
   [ButtonType.TRANSPARENT_BLACK]: 'bg-transparent text-[#2D2D2D] border border-[#575757]',
   [ButtonType.TRANSPARENT_BLUE]: 'bg-transparent text-[##3E63E5] border border-[#3E63E5]',
   [ButtonType.CUSTOM]: ''
