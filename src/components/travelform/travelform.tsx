@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useState } from 'react';
 // import background from 'assets/travelformbg.jpg';
 import Select from 'react-select';
-import PdfViewer from 'components/pdfViewer/pdfViewer';
 
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -15,7 +14,7 @@ const TravelForm: FC = () => {
     { value: 'London', label: 'London' },
     { value: 'Manali', label: 'Manali' }
   ];
-  const [viewPdf, setViewPdf] = useState(false);
+
   const [formvalues, setValues] = useState({
     Destination: '',
     PickupSpot: '',
@@ -135,7 +134,6 @@ const TravelForm: FC = () => {
                 id='createbutton2'
                 onClick={() => {
                   submitfn();
-                  setViewPdf(true);
                 }}
               >
                 Submit
@@ -144,13 +142,6 @@ const TravelForm: FC = () => {
           </div>
         </form>
       </div>
-      {viewPdf ? (
-        <div className=''>
-          <PdfViewer></PdfViewer>
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };

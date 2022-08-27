@@ -8,7 +8,8 @@ const routesPath = {
   ENQUIRY: '/user/enquiries',
   FORM: '/user/travelform',
   USERHOME: '/user/home',
-  ENQUIRYDETAILS: `/user/enquiry`
+  ENQUIRYDETAILS: `/user/enquiry`,
+  PDF: `/user/pdf`
 };
 
 export default routesPath;

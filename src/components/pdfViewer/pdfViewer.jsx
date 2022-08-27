@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import pdf from '../../assets/sample.pdf';
-import Modal from '@material-ui/core/Modal';
+// import { Modal } from '@mui/material';
 
 const PdfViewer = () => {
   const [numPages, setNumPages] = useState(null);
@@ -23,42 +23,48 @@ const PdfViewer = () => {
   }
 
   return (
-    <Modal
-      open={true}
-      style={{
-        position: 'absolute',
-
-        // height: 600,
-        // width: 475,
-        margin: 'auto'
-      }}
-    >
-      <div className='p-4 bg-White'>
+    <div className=' p-4'>
+      <div className='flex w-full justify-center'>
         <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
           <Page height='600' pageNumber={pageNumber} />
         </Document>
-        <div
-          className='position: absolute;
-          left: 0;
-          top: 50%;'
-        >
-          <p className='bg-white  p-2 rounded-md  justify-end'>
-            Page {pageNumber} of {numPages}
-          </p>
-
-          {pageNumber > 1 && (
-            <button className='bg-white p-2 rounded-md' onClick={changePageBack}>
-              Previous Page
-            </button>
-          )}
-          {pageNumber < numPages && (
-            <button className='bg-white p-2 rounded-md' onClick={changePageForward}>
-              Next Page
-            </button>
-          )}
-        </div>
       </div>
-    </Modal>
+
+      <div className=''>
+        <p className=' p-2 rounded-md'>
+          Page {pageNumber} of {numPages}
+        </p>
+      </div>
+      <div className=''>
+        {pageNumber > 1 && (
+          <button className=' p-2 rounded-md' onClick={changePageBack}>
+            Previous Page
+          </button>
+        )}
+        {pageNumber < numPages && (
+          <button className=' p-2 rounded-md' onClick={changePageForward}>
+            Next Page
+          </button>
+        )}
+      </div>
+      <div className=''>
+        <button className=' p-2 rounded-md' onClick={''}>
+          Accept
+        </button>
+      </div>
+      <div className=''>
+        <button className=' bg-red-800 p-2 rounded-md' onClick={changePageForward}>
+          Not Interested
+        </button>
+      </div>
+      <div className=''>
+        <button className=' p-2 rounded-md'>
+          <a href='http://www.africau.edu/images/default/sample.pdf' target='_blank' rel='noreferrer'>
+            Download
+          </a>
+        </button>
+      </div>
+    </div>
   );
 };
 
