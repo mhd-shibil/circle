@@ -7,6 +7,28 @@ import Select from 'react-select';
 import { showSuccessToast } from 'utils/toast.util';
 import { createEnquiryMutation } from 'mutation/mutations';
 
+enum HotelStar {
+  One = 'One',
+  Two = 'Two',
+  Three = 'Three',
+  Four = 'Four',
+  Five = 'Five',
+  NoPreference = 'NoPreference'
+}
+
+interface CreateEnquiryInputType {
+  userId: string;
+  pickUpPoint: string;
+  destinationId: string;
+  startDate: Date;
+  returnDate: Date;
+  budget: number;
+  adults: number;
+  children: number;
+  hotelStar: HotelStar;
+  notes: string;
+}
+
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const history = useHistory();
@@ -34,13 +56,27 @@ const TravelForm: FC = () => {
       setValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
-  const [mutateFunction, { data, loading, error }] = useMutation(createEnquiryMutation);
+  const [createEnquiry, { data, loading, error }] = useMutation(createEnquiryMutation);
 
   console.log(1, data, loading, error);
 
   function submitfn() {
     // API to submit form
-    mutateFunction();
+    const enquiryInput: CreateEnquiryInputType = {
+      userId: '74bd13af-0337-4bdd-a5c5-9535efdf329d',
+      pickUpPoint: formvalues.PickupSpot,
+      destinationId: '25d89b80-86d9-45d5-87ec-d25734bd1cf7',
+      startDate: new Date(formvalues.Date),
+      returnDate: new Date(formvalues.Date),
+      budget: Number(formvalues.budget),
+      adults: Number(formvalues.budget),
+      children: 0,
+      hotelStar: HotelStar.NoPreference,
+      notes: formvalues.notes
+    };
+
+    createEnquiry({ variables: { input: enquiryInput } });
+
     showSuccessToast('Travel Form Submitted Successfully');
     history.push('/user/enquiries');
   }
