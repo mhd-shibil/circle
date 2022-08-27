@@ -1,19 +1,37 @@
 import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
-import { FC, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { FC, useEffect, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { GET_PRESIGNED_URL } from 'queries/queries';
+import { createQuotationMutation } from 'mutation/mutations';
 
 import './style.css';
-import { Enquiry } from 'pages/home/types';
+import { CreateQuotationInput } from 'pages/home/types';
+import { toast } from 'react-toastify';
 
 interface RequestSummaryProps {
   onClose?: () => void;
-  selectedRow?: Enquiry;
+  selectedRow?: any;
 }
 
 const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
+  console.log('hello', selectedRow);
   const [file, setFile] = useState<File>();
+
+  const [createQuotation, { data }] = useMutation(createQuotationMutation);
+
+  const getFormattedTime = (input: string) => {
+    const time = new Date(input);
+
+    return time?.getDate() + '-' + time?.getMonth() + '-' + time?.getFullYear();
+  };
+
+  useEffect(() => {
+    if (data) {
+      onClose();
+      toast.success('Quotation Sent');
+    }
+  }, [data]);
 
   const handleUpload = async (data) => {
     await fetch(data.getPresignedUrl.url, {
@@ -21,6 +39,15 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
       body: file,
       headers: { ContentType: 'application/pdf' }
     });
+    const createQuotationInput: CreateQuotationInput = {
+      userId: selectedRow?.userId,
+      enquiryId: selectedRow?.id,
+      agentId: 'd439e173-5a26-4213-86cf-624c88dbeb53',
+      fileLink: data?.getPresignedUrl.key,
+      notes: 'dfsdfsdfsdf'
+    };
+
+    createQuotation({ variables: { input: createQuotationInput } });
   };
 
   const [getPresignedUrl] = useLazyQuery(GET_PRESIGNED_URL, {
@@ -50,12 +77,12 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
         <div className='text-sm text-[black] flex flex-col mt-8 font-semibold py-2'>
           <div>{`PickUp : ${selectedRow?.pickUpPoint}`}</div>
           <div>{`Budget : Rs.${selectedRow?.budget}`}</div>
-          <div>{`Hotel Preference : ${selectedRow?.hotelStar}`}</div>
-          <div>{`Start Date : ${selectedRow?.startDate}`}</div>
-          <div>{`Return Date : ${selectedRow?.returnDate}`}</div>
-          <div>{`Number of Adults : ${selectedRow?.adults}`}</div>
-          <div>{`Number of Children : ${selectedRow?.children}`}</div>
-          <div className='mt-4'>{`Notes : ${selectedRow?.notes}`}</div>
+          <div>{`Start Date : ${getFormattedTime(selectedRow?.startDate)}`}</div>
+          <div>{`Return Date : ${getFormattedTime(selectedRow?.returnDate)}`}</div>
+          {selectedRow?.hotelStar && <div>{`Hotel Preference : ${selectedRow?.hotelStar}`}</div>}
+          {selectedRow?.adults && <div>{`Number of Adults : ${selectedRow?.adults}`}</div>}
+          {selectedRow?.children && <div>{`Number of Children : ${selectedRow?.children}`}</div>}
+          {selectedRow?.notes && <div className='mt-4'>{`Notes : ${selectedRow?.notes}`}</div>}
           <div className='mt-4'>
             <input className='cursor-pointer' type='file' onChange={handleFileUpload} />
             <div className='mt-8'>

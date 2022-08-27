@@ -7,6 +7,33 @@ export const GET_PRESIGNED_URL = gql`
     }
   }
 `;
+export const GET_AGENTS_ENQUIRIES = gql`
+  query {
+    getAgentEnquiries {
+      id
+      user {
+        id
+        email
+        password
+        name
+        firebaseId
+      }
+      pickUpPoint
+      destination {
+        id
+        name
+      }
+      startDate
+      returnDate
+      budget
+      adults
+      children
+      hotelStar
+      notes
+      createdAt
+    }
+  }
+`;
 
 export const USER_LOGIN = gql`
   query loginUser($email: String!, $password: String!) {
