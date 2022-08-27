@@ -34,3 +34,11 @@ body {
   right: -100px;
   transition: all 0.3s ease-in-out;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+}
