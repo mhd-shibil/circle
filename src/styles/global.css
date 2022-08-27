@@ -21,3 +21,16 @@ body {
 .nav-item:hover {
   background-color: #F4F7FF;
 }
+
+.transaction-summary-visible {
+  opacity: 1;
+  right: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.transaction-summary-hide {
+  opacity: 0;
+  visibility: hidden;
+  right: -100px;
+  transition: all 0.3s ease-in-out;
+}
