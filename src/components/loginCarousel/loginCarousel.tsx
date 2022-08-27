@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 // }
 const LoginCarousel = () => {
   return (
-    <Carousel autoPlay showThumbs={false} className='h-full w-full object-cover'>
+    <Carousel autoPlay showThumbs={false} infiniteLoop className='h-full w-full object-cover'>
       <div className='h-screen w-full object-cover'>
         <img className='h-full w-full object-cover' alt='' src='images/img1.jpg' />
       </div>
