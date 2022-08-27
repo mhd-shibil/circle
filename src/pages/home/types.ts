@@ -28,3 +28,10 @@ export interface Enquiry {
   notes: String;
   createdAt: Date;
 }
+export interface CreateQuotationInput {
+  userId: String;
+  enquiryId: String;
+  agentId: String;
+  fileLink: String;
+  notes?: String;
+}

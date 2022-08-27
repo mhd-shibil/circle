@@ -3,7 +3,7 @@ export const SUCCESS_ICON = '/icons/success.svg';
 export const IN_PROGRESS_ICON = '/icons/in-progress.svg';
 export const FAILED_ICON = '/icons/failed.svg';
 export const CANCELLED_ICON = '/icons/cancelled.svg';
-export const LOADER_GIF = '/images/full-screen-loader.gif';
+export const LOADER_GIF = 'images/full-screen-loader.gif';
 
 export const CALENDER = 'icons/calender.svg';
 export const CALENDER_SELCTED = 'icons/calender-selected.svg';

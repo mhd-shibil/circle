@@ -24,7 +24,7 @@ const AgentLogin: FC = () => {
   const onCompleted = async (data) => {
     const selectedToken = await getToken();
 
-    setUserId(data?.loginUser?.id);
+    setUserId(data?.loginAgent?.id);
 
     setToken(selectedToken);
     history.push('/home');

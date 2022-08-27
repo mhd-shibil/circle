@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import Button from 'components/button/Button';
 import CustomInput from 'components/input/CustomInput';
@@ -8,10 +8,13 @@ import { ButtonType } from 'components/button/types';
 import { PaymentStatus, StatusPickerCell } from 'types';
 import RequestSummary from 'components/request-summary/RequestSummary';
 import { newRequestTableHeaders, respondedTableHeaders } from 'constants/table';
-import { Enquiry } from './types';
+// import { Enquiry } from './types';
+import { useQuery } from '@apollo/client';
+import { GET_AGENTS_ENQUIRIES } from 'queries/queries';
+
 const Home: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [selectedRow, setSelectedRow] = useState<Enquiry>(null);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showTransactionSummary, setShowTransactionSummary] = useState(false);
@@ -23,11 +26,28 @@ const Home: FC = () => {
       isSelected: false
     }))
   );
+  const { data, refetch } = useQuery(GET_AGENTS_ENQUIRIES);
 
-  const newRequestData = [
-    { pickUpPoint: 'kakanad', createdAt: '35-10-2020', budget: '25000', destination: 'Moonar', id: '1223' },
-    { pickUpPoint: 'kannur', createdAt: '3-10-2020', budget: '55000', destination: 'Kodai', id: '12' }
-  ];
+  useEffect(() => {
+    if (data) console.log(data);
+  }, [data]);
+
+  const newRequestData = useMemo(
+    () =>
+      data?.getAgentEnquiries.map((item) => {
+        return {
+          pickUpPoint: item.pickUpPoint,
+          createdAt: item.createdAt,
+          budget: item.budget,
+          destination: item.destination.name,
+          id: item.id,
+          userId: item.user.id,
+          startDate: item.startDate,
+          returnDate: item.returnDate
+        };
+      }),
+    [data?.getAgentEnquiries]
+  );
 
   const acceptedPackageData = [
     { pickUpPoint: 'kakanad', createdAt: '35-10-2020', budget: '25000', destination: 'Moonar', id: '1223' },
@@ -37,17 +57,8 @@ const Home: FC = () => {
   const getTableData = (activeTab) => (activeTab === 1 ? newRequestData : acceptedPackageData);
   const getTableHeaders = (activeTab) => (activeTab === 1 ? newRequestTableHeaders : respondedTableHeaders);
 
-  const clearFilter = () => {
-    setStartDate(new Date());
-    setEndDate(new Date());
-    setSearchText('');
-    // TODO: optimize initial value
-    setSelectedStatuses(
-      Object.values(PaymentStatus).map((item) => ({
-        type: item,
-        isSelected: false
-      }))
-    );
+  const refetchRequest = () => {
+    refetch();
   };
 
   const renderStatusCell = () => (
@@ -90,9 +101,9 @@ const Home: FC = () => {
             className='flex justify-center items-center text-center text-[14px] text-[#120A29] mr-[14px]
               cursor-pointer border-r border-[#120A29] pr-[12px]'
             role='presentation'
-            onClick={clearFilter}
+            onClick={refetchRequest}
           >
-            Clear Filter
+            Refresh
           </div>
           <div>
             <Filter
