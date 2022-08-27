@@ -77,8 +77,6 @@ const Home: FC = () => {
     </div>
   );
 
-  console.log(1, data);
-
   return (
     <div className='px-[40px] py-[40px] h-fit'>
       <div className='font-medium text-center text-[#9D9EAE] mb-[21px] flex justify-between'>
