@@ -7,7 +7,7 @@ toast.configure({
   bodyClassName: 'justify-center rounded-4px p-4',
   toastClassName: 'p-0'
 });
-const POSITION = 'top-center';
+const POSITION = 'top-right';
 const AUTO_CLOSE_DELAY = 5000;
 const style = {
   background: '#F7D2D7',

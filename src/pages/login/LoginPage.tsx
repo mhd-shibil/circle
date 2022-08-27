@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import LoginCarousel from 'components/loginCarousel/loginCarousel';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import lock from '../../assets/Vector.png';
 import { useSetRecoilState } from 'recoil';
@@ -13,6 +14,7 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import { USER_LOGIN } from 'queries/queries';
 import { userDetails } from 'store/atoms/userdetails.atom';
 import { UPDATE_USER } from 'queries/mutations';
+import routesPath from 'routes/RoutesPath';
 
 const Login: FC = () => {
   const history = useHistory();
@@ -73,6 +75,9 @@ const Login: FC = () => {
               <Button variant='outlined' type={'submit'} className='w-[400px] h-10'>
                 User Login
               </Button>
+              <Link className='text-PRIMARY_BLUE underline' to={routesPath.AGENT_LOGIN}>
+                login as agent ?
+              </Link>
             </div>
           </form>
         </div>
