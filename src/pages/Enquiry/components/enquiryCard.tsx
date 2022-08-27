@@ -6,10 +6,9 @@ interface EnquiryCardProps {
   destination?: string;
   date?: Date;
   id?: number;
-  status?: string;
 }
 
-const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id, status }) => {
+const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id }) => {
   const history = useHistory();
 
   return (
@@ -18,16 +17,13 @@ const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id, 
       onClick={() => history.push('/user/enquiry/' + id)}
       role='presentation'
     >
-      <div className='flex flex-row justify-between'>
-        <div className=''>
-          <div className='flex mb-2'>
-            <span className='text-red-500 font-bold'>{startPlace}</span>
-            <img src='icons/pay-in-icon.svg' alt='right Arrow' className='px-4' />
-            <span className='text-green-700 font-bold'>{destination}</span>
-          </div>
-          <div>{date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()}</div>
+      <div className='flex flex-col justify-between'>
+        <div className='flex mb-2'>
+          <span className='text-red-500 font-bold'>{startPlace}</span>
+          <img src='icons/pay-in-icon.svg' alt='right Arrow' className='px-4' />
+          <span className='text-green-700 font-bold'>{destination}</span>
         </div>
-        <div className='flex items-center font-medium'>{status}</div>
+        <div>{date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()}</div>
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ const EnquiryPage: FC = () => {
               destination={enquiry?.destination?.name}
               date={new Date(enquiry?.startDate)}
               id={enquiry?.id}
-              status='pending'
             />
           );
         })}
