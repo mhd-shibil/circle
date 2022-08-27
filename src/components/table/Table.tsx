@@ -3,23 +3,13 @@ import './styles.css';
 
 const Table = (props) => {
   const {
-   
     tableHeads,
-   
     tableData,
-   
     emptyText,
-   
     selectedRow,
-   
     onRowClick,
-   
     rowClassName,
-   
     tbodyClassName,
-    isLoading,
-    setShowTransactionSummary
- ,
     isLoading,
     setShowTransactionSummary
   } = props;
@@ -44,7 +34,11 @@ const Table = (props) => {
 
   const renderTableBody = () => {
     if (isLoading) {
-      return <div className='flex justify-center items-center h-[200px]'>Loading.....</div>;
+      return (
+        <div className='flex justify-center items-center h-[200px]'>
+          Loading.....
+        </div>
+      );
     }
 
     if (tableData?.length) {
