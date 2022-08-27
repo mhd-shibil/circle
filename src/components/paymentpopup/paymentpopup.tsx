@@ -8,7 +8,7 @@ interface paymentDetails {
 
 const PaymentPopUp: React.FC<paymentDetails> = ({ cancelFn }) => {
   return (
-    <div className='w-screen h-screen top-0 left-0 flex items-start flex-wrap bg-opacity-50 justify-center fixed '>
+    <div className='w-screen h-screen top-0 left-0 flex items-start flex-wrap bg-opacity-50 justify-center fixed  z-10'>
       <div className='bg-white w-96 p-10 my-auto text-center shadow-slate-300 rounded-md'>
         <h2 className='font-bold'>Completed Payment!</h2> <br />
         <p className='font-semibold'>Rs. 20000</p>

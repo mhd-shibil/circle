@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { FaArrowRight } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { userDetails } from 'store/atoms/userdetails.atom';
+import { useRecoilValue } from 'recoil';
 
 const userHome: React.FC = () => {
+  const userId = useRecoilValue(userDetails);
+
   type OptionType = {
     value: string;
     label: string;
@@ -28,8 +32,6 @@ const userHome: React.FC = () => {
   const navigate = () => {
     history.push({ pathname: '/user/travelform', state: { destination: place?.value } });
   };
-
-  console.log(place?.value);
 
   return (
     <div className=' h-full flex justify-center '>

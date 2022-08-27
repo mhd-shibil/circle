@@ -1,11 +1,37 @@
-import { FC } from 'react';
-
+import { FC, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 // import background from 'assets/travelformbg.jpg';
 import Select from 'react-select';
+import { showSuccessToast } from 'utils/toast.util';
+import { createEnquiryMutation } from 'mutation/mutations';
+
+enum HotelStar {
+  One = 'One',
+  Two = 'Two',
+  Three = 'Three',
+  Four = 'Four',
+  Five = 'Five',
+  NoPreference = 'NoPreference'
+}
+
+interface CreateEnquiryInputType {
+  userId: string;
+  pickUpPoint: string;
+  destinationId: string;
+  startDate: Date;
+  returnDate: Date;
+  budget: number;
+  adults: number;
+  children: number;
+  hotelStar: HotelStar;
+  notes: string;
+}
 
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const history = useHistory();
   const options = [
     { value: 'Munnar', label: 'Munnar' },
     { value: 'Goa', label: 'Goa' },
@@ -30,9 +56,43 @@ const TravelForm: FC = () => {
     };
   };
 
+  const [createEnquiry, { data, loading, error }] = useMutation(createEnquiryMutation);
+
   function submitfn() {
-    console.log(formvalues);
+    const enquiryInput: CreateEnquiryInputType = {
+      userId: '74bd13af-0337-4bdd-a5c5-9535efdf329d',
+      pickUpPoint: formvalues.PickupSpot,
+      destinationId: '25d89b80-86d9-45d5-87ec-d25734bd1cf7',
+      startDate: new Date(formvalues.Date),
+      returnDate: new Date(formvalues.Date),
+      budget: Number(formvalues.budget),
+      adults: Number(formvalues.budget),
+      children: 0,
+      hotelStar: HotelStar.NoPreference,
+      notes: formvalues.notes
+    };
+
+    createEnquiry({ variables: { input: enquiryInput } });
+
+    showSuccessToast('Travel Form Submitted Successfully');
+    history.push('/user/enquiries');
   }
+
+  const setFormWithValue = (formKey: string, value: string) => {
+    setValues((oldValues) => ({ ...oldValues, [formKey]: value }));
+  };
+
+  const location: any = useLocation();
+
+  console.log(1, formvalues);
+
+  useEffect(() => {
+    setFormWithValue('Destination', location?.state?.destination);
+  }, [location]);
+
+  useEffect(() => {
+    setFormWithValue('PickupSpot', selectedOption?.value);
+  }, [selectedOption]);
 
   return (
     <div className=''>

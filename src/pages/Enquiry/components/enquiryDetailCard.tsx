@@ -3,6 +3,7 @@ import { Button } from 'components';
 import { ButtonType } from 'components/button/types';
 import { getAgentQuery } from 'queries/queries';
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PaymentPopUp from '../../../components/paymentpopup/paymentpopup';
 
 interface EnquiryDetailCardProps {
@@ -13,6 +14,7 @@ interface EnquiryDetailCardProps {
 const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
   const [paymentModal, setPaymentModalOpen] = useState(false);
   const [agentName, setAgentName] = useState<string>('');
+  const history = useHistory();
 
   const cancelFn = () => {
     setPaymentModalOpen(false);
@@ -33,7 +35,7 @@ const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
       <div className=' border-2 rounded p-4 shadow-md mb-4'>
         <div className='flex justify-between'>
           <div>{agentName}</div>
-          <Button type={ButtonType.BLUE} onClick={() => console.log('click')} className='items-center'>
+          <Button type={ButtonType.BLUE} onClick={() => history.push('/user/pdf')} className='items-center'>
             View Quotation
           </Button>
         </div>

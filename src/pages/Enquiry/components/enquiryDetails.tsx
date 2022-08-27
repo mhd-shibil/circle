@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { getEnquiryQuery, getQuotationsQuery } from 'queries/queries';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import EnquiryDetailCard from './enquiryDetailCard';
 
 const EnquiryDetails: FC = () => {
@@ -8,11 +8,25 @@ const EnquiryDetails: FC = () => {
     variables: { quotationQueryOption: { userId: '74bd13af-0337-4bdd-a5c5-9535efdf329d' } }
   });
 
-  const { data: enquiryData } = useQuery(getEnquiryQuery, {
-    variables: { id: '1' }
-  });
+  // const { data: enquiryData } = useQuery(getEnquiryQuery, {
+  //   variables: { id: 'location' }
+  // });
 
-  console.log(enquiryData);
+  // console.log(55);
+
+  // const [enquiryData, setEnquiryData] = useState();
+
+  // useEffect(() => {
+  //   const queryId = location.href.split('/').pop();
+  //   const { data: enquiryData } = useQuery(getEnquiryQuery, {
+  //     variables: { id: queryId }
+  //   });
+
+  //   console.log(66, enquiryData);
+  //   // setEnquiryData(enquiryData);
+  // }, [location]);
+
+  // console.log(enquiryData);
 
   return (
     <div className='m-6'>
