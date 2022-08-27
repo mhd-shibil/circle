@@ -4,7 +4,7 @@ const routesPath = {
   HOME: '/home',
   LOGIN: '/login',
   ENQUIRY: '/enquiries',
-  FORM:'/travelform',
+  FORM: '/travelform',
   USERHOME: '/userhome'
 };
 

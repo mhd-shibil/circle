@@ -1,8 +1,19 @@
 import { FC } from 'react';
 
 import { useState } from 'react';
+// import background from 'assets/travelformbg.jpg';
+import Select from 'react-select';
 
 const TravelForm: FC = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = [
+    { value: 'Munnar', label: 'Munnar' },
+    { value: 'Goa', label: 'Goa' },
+    { value: 'Delhi', label: 'Delhi' },
+    { value: 'Kochi', label: 'Kochi' },
+    { value: 'London', label: 'London' },
+    { value: 'Manali', label: 'Manali' }
+  ];
   const [formvalues, setValues] = useState({
     Destination: '',
     PickupSpot: '',
@@ -23,13 +34,14 @@ const TravelForm: FC = () => {
   }
 
   return (
-    <>
+    <div>
       <div>
-        <form name='TravelForm' className='my-8'>
+        {' '}
+        <form name='TravelForm' className=' px-6'>
           <div className='no-scrollbar'>
             <div className=''>
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Destination</label>
+                <label className='mb-2 text-gray-500'>Destination</label>
                 <input
                   className='rounded-md bg-slate-100 text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
                   type='text'
@@ -40,23 +52,16 @@ const TravelForm: FC = () => {
                 />
               </div>
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Pickup Spot</label>
+                <label className='mb-2 text-gray-500'>Pickup Spot</label>
 
-                <select
-                   className='rounded-md bg-slate-100  p-1 border-solid border-2 border-gray-400 w-1/2'
-                  name='PickupSpot'
-                  id='PickupSpot'
-                  value={formvalues.PickupSpot}
-                  onChange={set('PickupSpot')}
-                >
-                  <option value='location A'>location A</option>
-                  <option value='location B'>location B</option>
-                </select>
+                <div className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'>
+                  <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
+                </div>
               </div>
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Date</label>
+                <label className='mb-2 text-gray-500'>Date</label>
                 <input
-                   className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
+                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
                   type='Date'
                   id='Date'
                   name='Date'
@@ -69,7 +74,7 @@ const TravelForm: FC = () => {
 
             <div>
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Number of people</label>
+                <label className='mb-2 text-gray-500'>Number of people</label>
                 <input
                   className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
                   type='text'
@@ -82,10 +87,10 @@ const TravelForm: FC = () => {
               </div>
 
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Max Budget</label>
+                <label className='mb-2 text-gray-500'>Max Budget</label>
 
                 <input
-                   className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
+                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
                   type='text'
                   id='budget'
                   name='budget'
@@ -96,9 +101,9 @@ const TravelForm: FC = () => {
               </div>
 
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Hotel Preference</label>
+                <label className='mb-2 text-gray-500'>Hotel Preference</label>
                 <input
-                 className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
+                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
                   type='text'
                   id='hotel'
                   name='hotel'
@@ -108,9 +113,9 @@ const TravelForm: FC = () => {
                 />
               </div>
               <div className='flex flex-col  p-3'>
-                <label className='mb-2'>Notes</label>
+                <label className='mb-2 text-gray-500'>Notes</label>
                 <input
-                   className='rounded-md bg-slate-100   border-solid border-2 border-gray-400 w-1/2 text-sm p-2'
+                  className='rounded-md bg-slate-100   border-solid border-2 border-gray-400 w-1/2 text-sm p-2'
                   type='textarea'
                   id='notes'
                   name='notes'
@@ -123,7 +128,7 @@ const TravelForm: FC = () => {
 
             <div className='p-3 '>
               <button
-              className=' rounded-md bg-blue-900 w-1/2 text-white p-2'
+                className=' rounded-md bg-blue-900 w-1/2 text-white p-2'
                 type='button'
                 id='createbutton2'
                 onClick={() => {
@@ -136,7 +141,7 @@ const TravelForm: FC = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
