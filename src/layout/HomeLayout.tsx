@@ -5,6 +5,7 @@ import RoutesPath from 'routes/RoutesPath';
 import SideNav from 'components/side-nav/SideNav';
 import TopBar from 'components/topbar/Topbar';
 import TravelForm from 'components/travelform/travelform';
+import PdfViewer from 'components/pdfViewer/pdfViewer';
 
 const HomePage = lazy(() => import('pages/home/Home'));
 const EnquiryPage = lazy(() => import('pages/Enquiry'));
@@ -27,6 +28,7 @@ const HomeLayout = () => {
               <Route path={RoutesPath.FORM} component={TravelForm} />
               <Route path={RoutesPath.USERHOME} component={UserHome} />
               <Route path={RoutesPath.ENQUIRYDETAILS} component={EnquiryDetailsPage} />
+              <Route path={RoutesPath.PDF} component={PdfViewer} />
             </div>
           </Suspense>
         </Switch>
