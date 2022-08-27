@@ -1,11 +1,14 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 // import background from 'assets/travelformbg.jpg';
 import Select from 'react-select';
 import { showSuccessToast } from 'utils/toast.util';
 import { createEnquiryMutation } from 'mutation/mutations';
+import { useRecoilValue } from 'recoil';
+import { userDetails } from 'store/atoms/userdetails.atom';
+import { getDestinationQuery } from 'queries/queries';
 
 enum HotelStar {
   One = 'One',
@@ -32,14 +35,11 @@ interface CreateEnquiryInputType {
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const history = useHistory();
-  const options = [
-    { value: 'Munnar', label: 'Munnar' },
-    { value: 'Goa', label: 'Goa' },
-    { value: 'Delhi', label: 'Delhi' },
-    { value: 'Kochi', label: 'Kochi' },
-    { value: 'London', label: 'London' },
-    { value: 'Manali', label: 'Manali' }
-  ];
+  const { data: destinationPlaces } = useQuery(getDestinationQuery);
+
+  const options = destinationPlaces?.getDestinations?.map((dest) => {
+    return { label: dest?.name, value: dest?.name, id: dest?.id };
+  });
 
   const [formvalues, setValues] = useState({
     Destination: '',
@@ -56,17 +56,18 @@ const TravelForm: FC = () => {
     };
   };
 
-  const [createEnquiry, { data, loading, error }] = useMutation(createEnquiryMutation);
+  const [createEnquiry] = useMutation(createEnquiryMutation);
+  const userId = useRecoilValue(userDetails);
 
   function submitfn() {
     const enquiryInput: CreateEnquiryInputType = {
-      userId: '74bd13af-0337-4bdd-a5c5-9535efdf329d',
-      pickUpPoint: formvalues.PickupSpot,
-      destinationId: '25d89b80-86d9-45d5-87ec-d25734bd1cf7',
+      userId: userId,
+      pickUpPoint: selectedOption?.id,
+      destinationId: location?.state?.destination,
       startDate: new Date(formvalues.Date),
       returnDate: new Date(formvalues.Date),
       budget: Number(formvalues.budget),
-      adults: Number(formvalues.budget),
+      adults: Number(formvalues.people),
       children: 0,
       hotelStar: HotelStar.NoPreference,
       notes: formvalues.notes
@@ -87,11 +88,17 @@ const TravelForm: FC = () => {
   console.log(1, formvalues);
 
   useEffect(() => {
-    setFormWithValue('Destination', location?.state?.destination);
+    const destinationValue = destinationPlaces?.getDestinations?.filter((dest) => {
+      return dest.id === location?.state?.destination;
+    });
+
+    console.log(90, destinationValue[0]?.name);
+
+    setFormWithValue('Destination', destinationValue[0]?.name);
   }, [location]);
 
   useEffect(() => {
-    setFormWithValue('PickupSpot', selectedOption?.value);
+    setFormWithValue('PickupSpot', selectedOption?.id);
   }, [selectedOption]);
 
   return (
