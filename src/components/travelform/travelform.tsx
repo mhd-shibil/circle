@@ -1,9 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 // import background from 'assets/travelformbg.jpg';
 import Select from 'react-select';
 import { showSuccessToast } from 'utils/toast.util';
+import { createEnquiryMutation } from 'mutation/mutations';
 
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -32,9 +34,13 @@ const TravelForm: FC = () => {
       setValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
+  const [mutateFunction, { data, loading, error }] = useMutation(createEnquiryMutation);
+
+  console.log(1, data, loading, error);
 
   function submitfn() {
     // API to submit form
+    mutateFunction();
     showSuccessToast('Travel Form Submitted Successfully');
     history.push('/user/enquiries');
   }
