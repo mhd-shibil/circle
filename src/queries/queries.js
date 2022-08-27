@@ -50,3 +50,47 @@ export const AGENT_LOGIN = gql`
     }
   }
 `;
+
+export const getQuotationsQuery = gql`
+  query getQuotations($quotationQueryOption: QuotationQueryOption!) {
+    getQuotations(quotationQueryOption: $quotationQueryOption) {
+      id
+      fileLink
+      agentId
+    }
+  }
+`;
+
+export const getAgentQuery = gql`
+  query getAgent($id: ID!) {
+    getAgent(id: $id) {
+      id
+      name
+    }
+  }
+`;
+
+export const getEnquiryQuery = gql`
+  query getEnquiry($id: String!) {
+    getEnquiry(id: $id) {
+      startDate
+      adults
+      children
+    }
+  }
+`;
+
+export const getCustomerEnquiriesQuery = gql`
+  query getCustomerEnquiries($userId: String!) {
+    getCustomerEnquiries(userId: $userId) {
+      id
+      destination {
+        name
+      }
+      startDate
+      adults
+      children
+      pickUpPoint
+    }
+  }
+`;
