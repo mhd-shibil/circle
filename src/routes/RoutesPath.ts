@@ -3,7 +3,8 @@ const routesPath = {
   DEFAULT: '/',
   HOME: '/home',
   LOGIN: '/login',
-  ENQUIRY: '/enquiries'
+  ENQUIRY: '/enquiries',
+  USERHOME: '/userhome'
 };
 
 export default routesPath;

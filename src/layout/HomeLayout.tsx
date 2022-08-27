@@ -7,6 +7,7 @@ import TopBar from 'components/topbar/Topbar';
 
 const HomePage = lazy(() => import('pages/home/Home'));
 const EnquiryPage = lazy(() => import('pages/Enquiry'));
+const UserHome = lazy(() => import('pages/home/userHome'));
 
 const Loader = () => <div className='w-full h-[calc(100vh-75px)] flex items-center justify-center'>Loading...</div>;
 
@@ -21,6 +22,7 @@ const HomeLayout = () => {
             <div className='h-[calc(100vh-74px)] bg-gray-100 overflow-y-auto'>
               <Route path={RoutesPath.HOME} component={HomePage} />
               <Route path={RoutesPath.ENQUIRY} component={EnquiryPage} />
+              <Route path={RoutesPath.USERHOME} component={UserHome} />
             </div>
           </Suspense>
         </Switch>
