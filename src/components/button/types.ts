@@ -1,0 +1,7 @@
+export enum ButtonType {
+  BLUE,
+  GREY,
+  TRANSPARENT_BLACK,
+  TRANSPARENT_BLUE,
+  CUSTOM
+}

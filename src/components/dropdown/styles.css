@@ -1,0 +1,32 @@
+.dropdown-label {
+  position: relative;
+  top: 12px;
+  transition: all 0.2s;
+}
+
+.dropdown-label-active {
+  font-size: 16px;
+}
+
+.dropdown-label-inactive {
+  font-size: 12px;
+  top: -12px;
+  color: #080E52;
+}
+
+.dropdown-button-active {
+  border-bottom: 2px solid #BDBEFF;
+}
+
+.dropdown-select {
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dropodown-menu-item {
+  line-height: 2.5rem
+}
+
+.dropodown-menu-item:hover {
+  text-decoration: underline;
+  background-color: aliceblue;
+}

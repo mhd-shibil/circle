@@ -1,0 +1,33 @@
+
+
+.input-field {
+  color: #212121;
+  transition: border-color 0.2s;
+}
+
+.input-field::placeholder {
+  color: transparent;
+}
+
+.input-field:placeholder-shown ~ .input-label {
+  font-size: 16px;
+  cursor: text;
+  top: 20px;
+}
+
+label,
+.input-field:focus ~ .input-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 12px;
+}
+
+.input-field:focus ~ .input-label {
+  color: #080E52;
+}
+
+.input-field:focus {
+  border-bottom: 2px solid #BDBEFF;
+}
