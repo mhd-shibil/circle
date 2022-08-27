@@ -1,6 +1,7 @@
 const routesPath = {
   ALL: '*',
   DEFAULT: '/',
+  DEFAULT_LOGIN: '/login',
   HOME: '/home',
   LOGIN: '/login',
   AGENT_LOGIN: '/login/agent',
