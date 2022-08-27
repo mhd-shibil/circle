@@ -47,18 +47,18 @@ const PdfViewer = () => {
           </button>
         )}
       </div>
-      <div className=''>
-        <button className=' p-2 rounded-md' onClick={''}>
+      <div className='p-2'>
+        <button className=' p-2 rounded-md text-white' style={{ backgroundColor: 'green' }} onClick={''}>
           Accept
         </button>
       </div>
-      <div className=''>
-        <button className=' bg-red-800 p-2 rounded-md' onClick={changePageForward}>
+      <div className='p-2'>
+        <button className=' p-2 rounded-md  text-white' style={{ backgroundColor: 'red' }} onClick={changePageForward}>
           Not Interested
         </button>
       </div>
-      <div className=''>
-        <button className=' p-2 rounded-md'>
+      <div className='p-2'>
+        <button className=' p-2 rounded-md  ' style={{ backgroundColor: 'lightsteelblue' }}>
           <a href='http://www.africau.edu/images/default/sample.pdf' target='_blank' rel='noreferrer'>
             Download
           </a>
