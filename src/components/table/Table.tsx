@@ -3,13 +3,23 @@ import './styles.css';
 
 const Table = (props) => {
   const {
+   
     tableHeads,
+   
     tableData,
+   
     emptyText,
+   
     selectedRow,
+   
     onRowClick,
+   
     rowClassName,
+   
     tbodyClassName,
+    isLoading,
+    setShowTransactionSummary
+ ,
     isLoading,
     setShowTransactionSummary
   } = props;
