@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { FaArrowRight } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const userHome: React.FC = () => {
   type OptionType = {
     value: string;
     label: string;
   };
+  const history = useHistory();
 
   const [place, setPlace] = useState<OptionType>(null);
 
@@ -24,7 +26,7 @@ const userHome: React.FC = () => {
   };
 
   const navigate = () => {
-    console.log('navigated');
+    history.push({ pathname: '/user/travelform', state: { destination: place?.value } });
   };
 
   console.log(place?.value);
