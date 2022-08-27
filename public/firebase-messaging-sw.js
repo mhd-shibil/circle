@@ -19,9 +19,6 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function (payload) {
   console.log('Received background message ', payload);
-  const audio = new Audio('https://github.com/mhd-shibil/circle/blob/develop/src/assets/notificacion.mp3');
-
-  audio.play();
 
   const notificationTitle = payload.notification.title;
   const notificationOptions = {

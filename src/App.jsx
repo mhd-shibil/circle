@@ -9,14 +9,17 @@ import { RecoilRoot } from 'recoil';
 
 import './styles/global.css';
 import { showSuccessToast } from 'utils/toast.util';
+import { useState } from 'react';
 
 const App = () => {
   const [play] = useSound(NotificationSound);
+  const [, setNotifications] = useState();
 
   onMessageListener()
     .then((payload) => {
       play();
       showSuccessToast(payload?.notification?.title);
+      setNotifications(payload?.notification?.title);
       console.log(payload);
     })
     .catch((err) => console.log('failed: ', err));

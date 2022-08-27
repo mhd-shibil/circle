@@ -10,16 +10,18 @@ import { useSetRecoilState } from 'recoil';
 import { FireBaseClientId } from 'store/atoms/FireBaseId.atom';
 import { getToken } from '../../firebase';
 import RhfInput from 'components/RHFInput/RhfInput';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { AGENT_LOGIN } from 'queries/queries';
 import { userDetails } from 'store/atoms/userdetails.atom';
 import routesPath from 'routes/RoutesPath';
+import { UPDATE_AGENT } from 'queries/mutations';
 
 const AgentLogin: FC = () => {
   const history = useHistory();
   const setToken = useSetRecoilState(FireBaseClientId);
   const setUserId = useSetRecoilState(userDetails);
   const { control, handleSubmit } = useForm();
+  const [updateAgent] = useMutation(UPDATE_AGENT);
 
   const onCompleted = async (data) => {
     const selectedToken = await getToken();
@@ -27,6 +29,14 @@ const AgentLogin: FC = () => {
     setUserId(data?.loginAgent?.id);
 
     setToken(selectedToken);
+    updateAgent({
+      variables: {
+        id: data?.loginAgent?.id,
+        input: {
+          firebaseId: selectedToken
+        }
+      }
+    });
     history.push('/home');
   };
 
