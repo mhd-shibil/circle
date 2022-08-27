@@ -1,12 +1,15 @@
 const routesPath = {
   ALL: '*',
   DEFAULT: '/',
+  DEFAULT_LOGIN: '/login',
   HOME: '/home',
   LOGIN: '/login',
-  ENQUIRY: '/enquiries',
-  FORM: '/travelform',
-  USERHOME: '/userhome',
-  ENQUIRYDETAILS: `/enquiry`
+  AGENT_LOGIN: '/login/agent',
+  USER_LOGIN: '/login/user',
+  ENQUIRY: '/user/enquiries',
+  FORM: '/user/travelform',
+  USERHOME: '/user/home',
+  ENQUIRYDETAILS: `/user/enquiry`
 };
 
 export default routesPath;
