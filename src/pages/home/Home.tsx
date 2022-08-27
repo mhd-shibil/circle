@@ -8,7 +8,6 @@ import { ButtonType } from 'components/button/types';
 import { PaymentStatus, StatusPickerCell, RequestDetails } from 'types';
 import RequestSummary from 'components/request-summary/RequestSummary';
 import { newRequestTableHeaders, respondedTableHeaders } from 'constants/table';
-
 const Home: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [selectedRow, setSelectedRow] = useState<RequestDetails>(null);
