@@ -32,14 +32,14 @@ const SideNav: React.FC<SideNavProps> = ({ className, children }) => {
       {children}
       <div className='flex flex-col font-semibold'>
         <div className='p-5 pl-12 mt-[17px] border-b'>
-          <img src='icons/abc.jpg' alt='Logo' width='67px' />
+          <img src='icons/abc.jpeg' alt='Logo' width='67px' />
         </div>
         {navItems.map((item, index) => (
           <NavItem key={index} label={item.label} target={item.path} active={location.pathname === item.path} />
         ))}
       </div>
       <div className='absolute border-t border-gray-200 w-full bottom-0 flex flex-col'>
-        <img alt='Footer' src='icons/abc.jpg' className='p-5 w-[80px] m-auto'/>
+        <img alt='Footer' src='icons/abc.jpeg' className='p-5 w-[80px] m-auto'/>
       </div>
     </div>
   );
