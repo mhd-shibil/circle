@@ -37,7 +37,7 @@ const Login: FC = () => {
         }
       }
     });
-    history.push('/home');
+    history.push('/user/home');
   };
 
   const [userLogin] = useLazyQuery(USER_LOGIN, {
