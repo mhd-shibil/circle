@@ -11,6 +11,8 @@ import { newRequestTableHeaders, respondedTableHeaders } from 'constants/table';
 // import { Enquiry } from './types';
 import { useQuery } from '@apollo/client';
 import { GET_AGENTS_ENQUIRIES } from 'queries/queries';
+import { useRecoilValue } from 'recoil';
+import { userDetails } from 'store/atoms/userdetails.atom';
 
 const Home: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -26,7 +28,9 @@ const Home: FC = () => {
       isSelected: false
     }))
   );
-  const { data, refetch } = useQuery(GET_AGENTS_ENQUIRIES);
+  const agentId = useRecoilValue(userDetails);
+
+  const { data, refetch } = useQuery(GET_AGENTS_ENQUIRIES, { variables: { agentId: agentId } });
 
   useEffect(() => {
     if (data) console.log(data);
@@ -36,14 +40,14 @@ const Home: FC = () => {
     () =>
       data?.getAgentEnquiries.map((item) => {
         return {
-          pickUpPoint: item.pickUpPoint,
-          createdAt: item.createdAt,
-          budget: item.budget,
-          destination: item.destination.name,
-          id: item.id,
-          userId: item.user.id,
-          startDate: item.startDate,
-          returnDate: item.returnDate
+          pickUpPoint: item?.pickUpPoint,
+          createdAt: item?.createdAt,
+          budget: item?.budget,
+          destination: item?.destination?.name,
+          id: item?.id,
+          userId: item?.user.id,
+          startDate: item?.startDate,
+          returnDate: item?.returnDate
         };
       }),
     [data?.getAgentEnquiries]

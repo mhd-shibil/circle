@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from '@apollo/client';
 import { getEnquiryQuery, getQuotationsQuery } from 'queries/queries';
 import { FC, useEffect, useState } from 'react';

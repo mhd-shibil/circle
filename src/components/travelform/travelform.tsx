@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useState } from 'react';
