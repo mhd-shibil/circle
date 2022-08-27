@@ -20,24 +20,28 @@ export const onMessageListener = () =>
     });
   });
 
-export const getToken = (setTokenFound) => {
+export const getToken = () => {
   return getFirebaseToken(messaging, {
     vapidKey: 'BPVhJSWenD8wsBrcdt3CHzQVLdr7cDxAknXlz7TseGZL1EJ1OamWLyPURDhztxjxsRdbfxDlsKm5Zu2Fu9e8jM8'
   })
     .then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);
-        setTokenFound(true);
+
+        return currentToken;
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
       } else {
         console.log('No registration token available. Request permission to generate one.');
-        setTokenFound(false);
+
+        return '';
         // shows on the UI that permission is required
       }
     })
     .catch((err) => {
       console.log('An error occurred while retrieving token. ', err);
+
+      return '';
       // catch error while creating client token
     });
 };
