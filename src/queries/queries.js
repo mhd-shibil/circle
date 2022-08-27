@@ -8,8 +8,8 @@ export const GET_PRESIGNED_URL = gql`
   }
 `;
 export const GET_AGENTS_ENQUIRIES = gql`
-  query {
-    getAgentEnquiries {
+  query getAgentEnquiries($agentId: String!) {
+    getAgentEnquiries(agentId: $agentId) {
       id
       user {
         id

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { FaArrowRight } from 'react-icons/fa';

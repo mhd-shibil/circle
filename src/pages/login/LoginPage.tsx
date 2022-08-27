@@ -20,7 +20,12 @@ const Login: FC = () => {
   const history = useHistory();
   const setToken = useSetRecoilState(FireBaseClientId);
   const setUserId = useSetRecoilState(userDetails);
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      username: '',
+      password: ''
+    }
+  });
   const [updateUser] = useMutation(UPDATE_USER);
 
   const onCompleted = async (data) => {
@@ -54,14 +59,14 @@ const Login: FC = () => {
   };
 
   return (
-    <div className='w-screen h-screen flex flex-row'>
-      <div className='flex flex-col justify-center items-center h-full w-[60vw]'>
+    <div className='w-screen h-screen flex flex-row relative'>
+      <div className='flex flex-col justify-center items-center h-full w-full'>
         {/* <img src='icons/login-page-image.svg' alt='Login Page' className='h-full w-full object-cover' /> */}
         <LoginCarousel />
       </div>
-      <div className='flex flex-col justify-center items-center h-full w-[40vw]'>
+      <div className='flex flex-col justify-center items-center h-full w-[40vw] absolute left-[50%]'>
         <div className='text-[40px] text-white font-extrabold'>CIRCLE</div>
-        <div className='rounded-[40px] bg-white m-[5%] p-[10%] shadow-lg'>
+        <div className='rounded-[40px] bg-white m-[5%] p-[10%] shadow-lg bg-opacity-95'>
           <div className='flex flex-row items-center'>
             <img src={lock} alt='Lock Icon' className='w-[12px]' />
             <span className='pl-[8px] font-[20px]'> Login to Circle</span>
