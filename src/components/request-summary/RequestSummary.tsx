@@ -1,8 +1,9 @@
 import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { RequestDetails } from 'types';
-import ReactS3Client from 'react-aws-s3-typescript';
+import { useLazyQuery } from '@apollo/client';
+import { GET_PRESIGNED_URL } from 'queries/queries';
 
 import './style.css';
 
@@ -13,42 +14,23 @@ interface RequestSummaryProps {
 
 const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
   const [file, setFile] = useState<File>();
-  const config = {
-    bucketName: process.env.REACT_APP_BUCKET_NAME,
-    region: process.env.REACT_APP_REGION,
-    accessKeyId: process.env.REACT_APP_ACCESS_ID,
-    secretAccessKey: process.env.REACT_APP_ACCESS_KEY
-  };
 
-  useEffect(() => {
-    if (file) console.log(file);
-  }, [file]);
+  const [getPresignedUrl] = useLazyQuery(GET_PRESIGNED_URL, {
+    onCompleted(data) {
+      fetch(data.getPresignedUrl.url, {
+        method: 'put',
+        body: file,
+        headers: { ContentType: 'application/pdf' }
+      });
+    }
+  });
 
   const handleFileUpload = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleSubmit = async () => {
-    const s3 = new ReactS3Client(config);
-    const filename = 'abc';
-
-    try {
-      const res = await s3.uploadFile(file, filename);
-
-      console.log(res);
-      /*
-       * {
-       *   Response: {
-       *     bucket: "bucket-name",
-       *     key: "directory-name/filename-to-be-uploaded",
-       *     location: "https:/your-aws-s3-bucket-url/directory-name/filename-to-be-uploaded"
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
+    getPresignedUrl();
   };
 
   return (
