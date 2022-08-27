@@ -34,11 +34,7 @@ const Table = (props) => {
 
   const renderTableBody = () => {
     if (isLoading) {
-      return (
-        <div className='flex justify-center items-center h-[200px]'>
-          Loading.....
-        </div>
-      );
+      return <div className='flex justify-center items-center h-[200px]'>Loading.....</div>;
     }
 
     if (tableData?.length) {
