@@ -1,0 +1,8 @@
+.vertical-line {
+  border-left: 2px solid #1e3a8a;
+  height: 50px;
+}
+
+.horizontal-line {
+  border: 0.5px dashed #6CAA6E;
+}
