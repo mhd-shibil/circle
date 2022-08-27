@@ -16,9 +16,9 @@ const Login: React.FC = () => {
         {/* <img src='icons/login-page-image.svg' alt='Login Page' className='h-full w-full object-cover' /> */}
         <LoginCarousel />
       </div>
-      <div className='container-right color-gradient flex flex-col justify-center items-center h-full w-[40vw]'>
-        <div className='text-[40px] text-white font-extrabold'>ABC</div>
-        <div className='rounded-[40px] bg-white m-[5%] p-[10%]'>
+      <div className='flex flex-col justify-center items-center h-full w-[40vw]'>
+        <div className='text-[40px] text-white font-extrabold'>CIRCLE</div>
+        <div className='rounded-[40px] bg-white m-[5%] p-[10%] border-2 border-[black]'>
           <div className='flex flex-row items-center'>
             <img src={lock} alt='Lock Icon' className='w-[12px]' />
             <span className='pl-[8px] font-[20px]'> Login to ABC</span>
@@ -27,9 +27,9 @@ const Login: React.FC = () => {
           <br />
           <div className='flex justify-left align-left'>
             <Button
-              type={ButtonType.TRANSPARENT_BLUE}
+              type={ButtonType.TRANSPARENT_BLACK}
               onClick={() => history.push('/home')}
-              className='w-[400px] text-[blue]'
+              className='w-[400px] text-[black'
             >
               <img src='icons/google.svg' alt='' height='20' className='mr-[10px]' />
               Login with Google

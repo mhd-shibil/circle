@@ -5,13 +5,13 @@ import CustomInput from 'components/input/CustomInput';
 import Filter from 'components/filter/Filter';
 import { Table } from 'components';
 import { ButtonType } from 'components/button/types';
-import { PaymentStatus, StatusPickerCell, RequestDetails } from 'types';
+import { PaymentStatus, StatusPickerCell } from 'types';
 import RequestSummary from 'components/request-summary/RequestSummary';
 import { newRequestTableHeaders, respondedTableHeaders } from 'constants/table';
-
+import { Enquiry } from './types';
 const Home: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [selectedRow, setSelectedRow] = useState<RequestDetails>(null);
+  const [selectedRow, setSelectedRow] = useState<Enquiry>(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showTransactionSummary, setShowTransactionSummary] = useState(false);
@@ -24,16 +24,17 @@ const Home: FC = () => {
     }))
   );
 
-  const convertedTransactionData = [
-    { id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' },
-    { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }
-  ];
-  const convertRefundsData = [
-    { id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' },
-    { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }
+  const newRequestData = [
+    { pickUpPoint: 'kakanad', createdAt: '35-10-2020', budget: '25000', destination: 'Moonar', id: '1223' },
+    { pickUpPoint: 'kannur', createdAt: '3-10-2020', budget: '55000', destination: 'Kodai', id: '12' }
   ];
 
-  const getTableData = (activeTab) => (activeTab === 1 ? convertedTransactionData : convertRefundsData);
+  const acceptedPackageData = [
+    { pickUpPoint: 'kakanad', createdAt: '35-10-2020', budget: '25000', destination: 'Moonar', id: '1223' },
+    { pickUpPoint: 'kannur', createdAt: '3-10-2020', budget: '55000', destination: 'Kodai', id: '12' }
+  ];
+
+  const getTableData = (activeTab) => (activeTab === 1 ? newRequestData : acceptedPackageData);
   const getTableHeaders = (activeTab) => (activeTab === 1 ? newRequestTableHeaders : respondedTableHeaders);
 
   const clearFilter = () => {

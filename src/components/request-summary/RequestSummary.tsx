@@ -1,54 +1,38 @@
 import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
-import { FC, useEffect, useState } from 'react';
-import { RequestDetails } from 'types';
-import ReactS3Client from 'react-aws-s3-typescript';
+import { FC, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
+import { GET_PRESIGNED_URL } from 'queries/queries';
 
 import './style.css';
+import { Enquiry } from 'pages/home/types';
 
 interface RequestSummaryProps {
   onClose?: () => void;
-  selectedRow?: RequestDetails;
+  selectedRow?: Enquiry;
 }
 
-const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
+const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
   const [file, setFile] = useState<File>();
-  const config = {
-    bucketName: process.env.REACT_APP_BUCKET_NAME,
-    region: process.env.REACT_APP_REGION,
-    accessKeyId: process.env.REACT_APP_ACCESS_ID,
-    secretAccessKey: process.env.REACT_APP_ACCESS_KEY
+
+  const handleUpload = async (data) => {
+    await fetch(data.getPresignedUrl.url, {
+      method: 'put',
+      body: file,
+      headers: { ContentType: 'application/pdf' }
+    });
   };
 
-  useEffect(() => {
-    if (file) console.log(file);
-  }, [file]);
+  const [getPresignedUrl] = useLazyQuery(GET_PRESIGNED_URL, {
+    onCompleted: handleUpload
+  });
 
   const handleFileUpload = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleSubmit = async () => {
-    const s3 = new ReactS3Client(config);
-    const filename = 'abc';
-
-    try {
-      const res = await s3.uploadFile(file, filename);
-
-      console.log(res);
-      /*
-       * {
-       *   Response: {
-       *     bucket: "bucket-name",
-       *     key: "directory-name/filename-to-be-uploaded",
-       *     location: "https:/your-aws-s3-bucket-url/directory-name/filename-to-be-uploaded"
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
+    getPresignedUrl();
   };
 
   return (
@@ -61,15 +45,19 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
       </div>
       <div className='px-[21px] flex flex-col pt-[24px] justify-start relative'>
         <div className='text-4xl text-blue-800 font-bold flex justify-start align-middle text-center'>
-          <div>Destination: Munar</div>
+          <div>{`Destination: ${selectedRow?.destination}`}</div>
         </div>
-        <div className='text-sm text-[black] flex flex-col mt-8 font-bold py-2'>
-          <div>PickUp : Kochi</div>
-          <div>Hotel Preference: 5 star</div>
-          <div>Amount : Rs.25000</div>
-          <div className='mt-4'>Notes: I need a 5 day package</div>
+        <div className='text-sm text-[black] flex flex-col mt-8 font-semibold py-2'>
+          <div>{`PickUp : ${selectedRow?.pickUpPoint}`}</div>
+          <div>{`Budget : Rs.${selectedRow?.budget}`}</div>
+          <div>{`Hotel Preference : ${selectedRow?.hotelStar}`}</div>
+          <div>{`Start Date : ${selectedRow?.startDate}`}</div>
+          <div>{`Return Date : ${selectedRow?.returnDate}`}</div>
+          <div>{`Number of Adults : ${selectedRow?.adults}`}</div>
+          <div>{`Number of Children : ${selectedRow?.children}`}</div>
+          <div className='mt-4'>{`Notes : ${selectedRow?.notes}`}</div>
           <div className='mt-4'>
-            <input type='file' onChange={handleFileUpload} />
+            <input className='cursor-pointer' type='file' onChange={handleFileUpload} />
             <div className='mt-8'>
               <Button type={ButtonType.BLUE} onClick={handleSubmit}>
                 Sumbit
