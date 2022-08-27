@@ -12,8 +12,8 @@ const EnquiryDetails: FC = () => {
       <div className='flex justify-end'>Date : 12/06/24</div>
       <div className='flex justify-end'>Number of passengers : 2</div>
       <div className='flex flex-col'>
-        <div className='text-xl font-bold'>Available Offers</div>
-        <div className='bg-white p-6'>
+        <div className='text-xl font-bold mb-4'>Available Offers</div>
+        <div className='bg-white p-6 rounded'>
           <EnquiryDetailCard />
           <EnquiryDetailCard />
           <EnquiryDetailCard />

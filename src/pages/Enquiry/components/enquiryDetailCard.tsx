@@ -18,7 +18,7 @@ const EnquiryDetailCard: FC = () => {
         <div className='flex justify-between'>
           <div>Agency 1</div>
           <Button type={ButtonType.BLUE} onClick={() => console.log('click')} className='items-center'>
-            View Offer
+            View Quotation
           </Button>
         </div>
         <div className='flex'>
