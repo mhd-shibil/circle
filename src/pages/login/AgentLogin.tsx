@@ -10,18 +10,16 @@ import { useSetRecoilState } from 'recoil';
 import { FireBaseClientId } from 'store/atoms/FireBaseId.atom';
 import { getToken } from '../../firebase';
 import RhfInput from 'components/RHFInput/RhfInput';
-import { useLazyQuery, useMutation } from '@apollo/client';
-import { USER_LOGIN } from 'queries/queries';
+import { useLazyQuery } from '@apollo/client';
+import { AGENT_LOGIN } from 'queries/queries';
 import { userDetails } from 'store/atoms/userdetails.atom';
-import { UPDATE_USER } from 'queries/mutations';
 import routesPath from 'routes/RoutesPath';
 
-const Login: FC = () => {
+const AgentLogin: FC = () => {
   const history = useHistory();
   const setToken = useSetRecoilState(FireBaseClientId);
   const setUserId = useSetRecoilState(userDetails);
   const { control, handleSubmit } = useForm();
-  const [updateUser] = useMutation(UPDATE_USER);
 
   const onCompleted = async (data) => {
     const selectedToken = await getToken();
@@ -29,26 +27,17 @@ const Login: FC = () => {
     setUserId(data?.loginUser?.id);
 
     setToken(selectedToken);
-    updateUser({
-      variables: {
-        id: data?.loginUser?.id,
-        input: {
-          firebaseId: selectedToken
-        }
-      }
-    });
     history.push('/home');
   };
 
-  const [userLogin] = useLazyQuery(USER_LOGIN, {
+  const [agentLogin] = useLazyQuery(AGENT_LOGIN, {
     onCompleted
   });
 
   const logIn = async (formData) => {
-    userLogin({
+    agentLogin({
       variables: {
-        email: formData?.username,
-        password: formData?.password
+        name: formData?.username
       }
     });
   };
@@ -73,10 +62,10 @@ const Login: FC = () => {
               <RhfInput control={control} name='username' label='Username' />
               <RhfInput control={control} name='password' label='Password' />
               <Button variant='outlined' type={'submit'} className='w-[400px] h-10'>
-                User Login
+                Agent Login
               </Button>
-              <Link className='text-PRIMARY_BLUE underline' to={routesPath.AGENT_LOGIN}>
-                login as agent ?
+              <Link className='text-PRIMARY_BLUE underline' to={routesPath.USER_LOGIN}>
+                login as user ?
               </Link>
             </div>
           </form>
@@ -86,4 +75,4 @@ const Login: FC = () => {
   );
 };
 
-export default Login;
+export default AgentLogin;
