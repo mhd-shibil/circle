@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
+import LoginCarousel from 'components/loginCarousel/loginCarousel';
 import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
 
@@ -13,7 +13,8 @@ const Login: React.FC = () => {
   return (
     <div className='w-screen h-screen flex flex-row'>
       <div className='flex flex-col justify-center items-center h-full w-[60vw]'>
-        <img src='icons/login-page-image.svg' alt='Login Page' className='h-full w-full object-cover' />
+        {/* <img src='icons/login-page-image.svg' alt='Login Page' className='h-full w-full object-cover' /> */}
+        <LoginCarousel />
       </div>
       <div className='container-right color-gradient flex flex-col justify-center items-center h-full w-[40vw]'>
         <div className='text-[40px] text-white font-extrabold'>ABC</div>
