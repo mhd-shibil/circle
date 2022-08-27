@@ -2,7 +2,8 @@ const routesPath = {
   ALL: '*',
   DEFAULT: '/',
   HOME: '/home',
-  LOGIN: '/login'
+  LOGIN: '/login',
+  ENQUIRY: '/enquiries'
 };
 
 export default routesPath;
