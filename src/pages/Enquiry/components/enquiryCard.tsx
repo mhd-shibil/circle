@@ -8,7 +8,7 @@ interface EnquiryCardProps {
   id?: number;
 }
 
-const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id }) => {
+const EnquiryCard: FC<EnquiryCardProps> = ({ destination, date, id }) => {
   const history = useHistory();
 
   return (
@@ -19,8 +19,8 @@ const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id }
     >
       <div className='flex flex-col justify-between'>
         <div className='flex mb-2'>
-          <span className='text-red-500 font-bold'>{startPlace}</span>
-          <img src='icons/pay-in-icon.svg' alt='right Arrow' className='px-4' />
+          {/* <span className='text-red-500 font-bold'>{startPlace}</span> */}
+          {/* <img src='icons/pay-in-icon.svg' alt='right Arrow' className='px-4' /> */}
           <span className='text-green-700 font-bold'>{destination}</span>
         </div>
         <div>{date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()}</div>
