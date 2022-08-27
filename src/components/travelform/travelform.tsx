@@ -10,6 +10,13 @@ import { createEnquiryMutation } from 'mutation/mutations';
 import { useRecoilValue } from 'recoil';
 import { userDetails } from 'store/atoms/userdetails.atom';
 import { getDestinationQuery } from 'queries/queries';
+import { useForm } from 'react-hook-form';
+import RhfInput from 'components/RHFInput/RhfInput';
+import { Button, MenuItem, TextField } from '@mui/material';
+import { DateRange } from 'react-date-range';
+import moment from 'moment';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 enum HotelStar {
   One = 'One',
@@ -61,9 +68,14 @@ const TravelForm: FC = () => {
   const userId = useRecoilValue(userDetails);
 
   function submitfn() {
+    console.log(7);
+    const pickupId = destinationPlaces?.getDestinations?.filter((dest) => {
+      return dest.name === selectedOption;
+    });
+
     const enquiryInput: CreateEnquiryInputType = {
       userId: userId,
-      pickUpPoint: selectedOption?.id,
+      pickUpPoint: pickupId[0]?.id,
       destinationId: location?.state?.destination,
       startDate: new Date(formvalues.Date),
       returnDate: new Date(formvalues.Date),
@@ -102,114 +114,119 @@ const TravelForm: FC = () => {
     setFormWithValue('PickupSpot', selectedOption?.id);
   }, [selectedOption]);
 
+  const { control, handleSubmit } = useForm();
+  const [showStartAndEndDate, setShowStartAndEndDate] = useState(false);
+  const [showDatePicker, setDatePicker] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState({
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection'
+  });
+  const onCloseShowDatePicker = () => {
+    setDatePicker(false);
+    setShowStartAndEndDate(true);
+    console.log(startDate);
+  };
+
+  const onClickShowDatePicker = () => {
+    setDatePicker(true);
+  };
+
+  console.log(selectedOption);
+
   return (
     <div className=''>
-      <div>
-        {' '}
-        <form name='TravelForm' className=' px-6'>
-          <div className='no-scrollbar'>
-            <div className=''>
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Destination</label>
-                <input
-                  className='rounded-md bg-slate-100 text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
-                  type='text'
-                  name='Destination'
-                  placeholder='Enter your detination'
-                  value={formvalues.Destination}
-                  onChange={set('Destination')}
-                />
-              </div>
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Pickup Spot</label>
+      <form onSubmit={handleSubmit(submitfn)}>
+        <div className='flex flex-col space-y-4 p-8'>
+          <TextField
+            defaultValue={formvalues.Destination}
+            InputProps={{
+              readOnly: true
+            }}
+            className='bg-white m-4 w-1/3'
+            label='Destination'
+          />
 
-                <div className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'>
-                  <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
+          <TextField
+            id='outlined-select-currency'
+            select
+            label='Pickup Spot'
+            value={selectedOption}
+            onChange={(event) => setSelectedOption(event.target.value)}
+            className='bg-white m-4 w-1/3'
+          >
+            {options?.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <div className='flex flex-col w-1/3'>
+            <button
+              onClick={onClickShowDatePicker}
+              className='h-14 min-h-14 rounded-md bg-white text-gray-500 text-sm border-solid border border-gray-400'
+              type='button'
+            >
+              {showStartAndEndDate ? (
+                <div className='flex justify-between px-4 text-base font-medium'>
+                  <div>{moment(startDate)?.format('DD-MM-YYYY')}</div>-
+                  <div>{moment(endDate)?.format('DD-MM-YYYY')}</div>
                 </div>
-              </div>
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Date</label>
-                <input
-                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
-                  type='Date'
-                  id='Date'
-                  name='Date'
-                  placeholder='Enter the date'
-                  value={formvalues.Date}
-                  onChange={set('Date')}
-                />
-              </div>
-            </div>
+              ) : (
+                <div className='flex flex-start ml-4 font-medium text-base'>Click to Enter Date</div>
+              )}
+            </button>
 
-            <div>
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Number of people</label>
-                <input
-                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
-                  type='text'
-                  id='people'
-                  name='people'
-                  placeholder='Enter the number of people'
-                  value={formvalues.people}
-                  onChange={set('people')}
+            {showDatePicker && (
+              <div className='absolute z-10'>
+                <DateRange
+                  className='pb-10'
+                  editableDateInputs={true}
+                  maxDate={new Date()}
+                  onChange={(item: any) => {
+                    setSelectedDate(item.selection);
+                    setStartDate(item.selection.startDate);
+                    setEndDate(item.selection.endDate);
+                  }}
+                  moveRangeOnFirstSelection={false}
+                  ranges={[selectedDate]}
                 />
+                <button
+                  className='absolute bottom-0 -ml-20 mb-4 border-2 rounded-md px-4 py-0.5 border-blue-800'
+                  onClick={onCloseShowDatePicker}
+                  type='button'
+                >
+                  Done
+                </button>
               </div>
-
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Max Budget</label>
-
-                <input
-                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
-                  type='text'
-                  id='budget'
-                  name='budget'
-                  placeholder='Enter the maximum budget'
-                  value={formvalues.budget}
-                  onChange={set('budget')}
-                />
-              </div>
-
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Hotel Preference</label>
-                <input
-                  className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'
-                  type='text'
-                  id='hotel'
-                  name='hotel'
-                  placeholder='Choose the hotel you prefer '
-                  value={formvalues.hotel}
-                  onChange={set('hotel')}
-                />
-              </div>
-              <div className='flex flex-col  p-3'>
-                <label className='mb-2 text-gray-500'>Notes</label>
-                <input
-                  className='rounded-md bg-slate-100   border-solid border-2 border-gray-400 w-1/2 text-sm p-2'
-                  type='textarea'
-                  id='notes'
-                  name='notes'
-                  placeholder='Enter your suggestions'
-                  value={formvalues.notes}
-                  onChange={set('notes')}
-                />
-              </div>
-            </div>
-
-            <div className='p-3 '>
-              <button
-                className=' rounded-md bg-blue-900 w-1/2 text-white p-2'
-                type='button'
-                id='createbutton2'
-                onClick={() => {
-                  submitfn();
-                }}
-              >
-                Submit
-              </button>
-            </div>
+            )}
           </div>
-        </form>
-      </div>
+
+          <TextField
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            label='Max Budget'
+            className='bg-white m-4 w-1/3'
+            value={formvalues.budget}
+            onChange={set('budget')}
+          />
+
+          <TextField
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            label='Number of People'
+            className='bg-white m-4 w-1/3'
+            value={formvalues.people}
+            onChange={set('people')}
+          />
+
+          <Button variant='outlined' type={'submit'} className='w-1/3 h-10'>
+            Submit
+          </Button>
+        </div>
+      </form>
+      <div></div>
     </div>
   );
 };

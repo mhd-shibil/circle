@@ -9,4 +9,11 @@ const navItems = [
   }
 ];
 
+export const userNavOptions = [
+  {
+    label: 'Home',
+    path: '/user/home'
+  }
+];
+
 export { navItems };
