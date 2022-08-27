@@ -4,8 +4,8 @@ const navItems = [
     path: '/home'
   },
   {
-    label: 'Responses',
-    path: '/responses'
+    label: 'Enquiries',
+    path: '/enquiries'
   }
 ];
 

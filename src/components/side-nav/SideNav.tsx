@@ -19,7 +19,9 @@ type NavItemProps = {
 const NavItem: React.FC<NavItemProps> = ({ active, className, label, target }) => {
   return (
     <Link to={target}>
-      <div className={`pl-12 leading-[50px] h-[50px] font-semibold ${className} nav-item${active ? '-active' : ''}`}>{label}</div>
+      <div className={`pl-12 leading-[50px] h-[50px] font-semibold ${className} nav-item${active ? '-active' : ''}`}>
+        {label}
+      </div>
     </Link>
   );
 };
@@ -31,15 +33,16 @@ const SideNav: React.FC<SideNavProps> = ({ className, children }) => {
     <div className={`bg-white w-[273px] h-screen absolute shadow ${className}`}>
       {children}
       <div className='flex flex-col font-semibold'>
-        <div className='p-5 pl-12 mt-[17px] border-b'>
-          <img src='icons/abc.jpeg' alt='Logo' width='67px' />
+        <div className='p-5 pl-12 border-b flex items-center'>
+          <img src='icons/travel.png' alt='Logo' width='35px' height='35px' />
+          <span className='ml-4'>Circle</span>
         </div>
         {navItems.map((item, index) => (
           <NavItem key={index} label={item.label} target={item.path} active={location.pathname === item.path} />
         ))}
       </div>
       <div className='absolute border-t border-gray-200 w-full bottom-0 flex flex-col'>
-        <img alt='Footer' src='icons/abc.jpeg' className='p-5 w-[80px] m-auto'/>
+        <img alt='Footer' src='icons/travel.png' className='p-5 w-[80px] m-auto' />
       </div>
     </div>
   );
