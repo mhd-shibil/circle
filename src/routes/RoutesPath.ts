@@ -4,7 +4,9 @@ const routesPath = {
   HOME: '/home',
   LOGIN: '/login',
   ENQUIRY: '/enquiries',
-  USERHOME: '/userhome'
+  FORM: '/travelform',
+  USERHOME: '/userhome',
+  ENQUIRYDETAILS: `/enquiry`
 };
 
 export default routesPath;

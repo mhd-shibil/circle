@@ -42,7 +42,7 @@ const SideNav: React.FC<SideNavProps> = ({ className, children }) => {
         ))}
       </div>
       <div className='absolute border-t border-gray-200 w-full bottom-0 flex flex-col'>
-        <img alt='Footer' src='icons/abc.jpg' className='p-5 w-[80px] m-auto' />
+        <img alt='Footer' src='icons/travel.png' className='p-5 w-[80px] m-auto' />
       </div>
     </div>
   );
