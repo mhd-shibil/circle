@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
 import { FC, useEffect, useState } from 'react';
@@ -8,6 +9,9 @@ import { createQuotationMutation } from 'mutation/mutations';
 import './style.css';
 import { CreateQuotationInput } from 'pages/home/types';
 import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { userDetails } from 'store/atoms/userdetails.atom';
+import CircularLoader from 'components/loader/CircularLoader';
 
 interface RequestSummaryProps {
   onClose?: () => void;
@@ -15,10 +19,12 @@ interface RequestSummaryProps {
 }
 
 const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
-  console.log('hello', selectedRow);
   const [file, setFile] = useState<File>();
+  const agentId = useRecoilValue(userDetails);
 
-  const [createQuotation, { data }] = useMutation(createQuotationMutation);
+  console.log(agentId);
+
+  const [createQuotation, { data, loading }] = useMutation(createQuotationMutation);
 
   const getFormattedTime = (input: string) => {
     const time = new Date(input);
@@ -42,7 +48,7 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
     const createQuotationInput: CreateQuotationInput = {
       userId: selectedRow?.userId,
       enquiryId: selectedRow?.id,
-      agentId: 'd439e173-5a26-4213-86cf-624c88dbeb53',
+      agentId: agentId,
       fileLink: data?.getPresignedUrl.key,
       notes: 'dfsdfsdfsdf'
     };
@@ -62,6 +68,13 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
     getPresignedUrl();
   };
 
+  if (loading)
+    return (
+      <div className='w-screen h-screen flex justify-center items-center'>
+        <CircularLoader fullScreen={false} />
+      </div>
+    );
+
   return (
     <div className={`rounded-[16px] shadow-lg p-[18px] w-[650px] h-[465px] relative bg-white simple_animation`}>
       <div className='absolute opacity-10 w-[612px] h-[418px] mt-3 -z-1'>
@@ -74,17 +87,17 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
         <div className='text-4xl text-blue-800 font-bold flex justify-start align-middle text-center'>
           <div>{`Destination: ${selectedRow?.destination}`}</div>
         </div>
-        <div className='text-sm text-[black] flex flex-col mt-8 font-semibold py-2'>
-          <div>{`PickUp : ${selectedRow?.pickUpPoint}`}</div>
-          <div>{`Budget : Rs.${selectedRow?.budget}`}</div>
-          <div>{`Start Date : ${getFormattedTime(selectedRow?.startDate)}`}</div>
-          <div>{`Return Date : ${getFormattedTime(selectedRow?.returnDate)}`}</div>
+        <div className='text-base text-[black] flex flex-col mt-8 font-semibold py-2'>
+          <div className='my-1'>{`PickUp : ${selectedRow?.pickUpPoint}`}</div>
+          <div className='my-1'>{`Budget : Rs.${selectedRow?.budget}`}</div>
+          <div className='my-1'>{`Start Date : ${getFormattedTime(selectedRow?.startDate)}`}</div>
+          <div className='my-1'>{`Return Date : ${getFormattedTime(selectedRow?.returnDate)}`}</div>
           {selectedRow?.hotelStar && <div>{`Hotel Preference : ${selectedRow?.hotelStar}`}</div>}
           {selectedRow?.adults && <div>{`Number of Adults : ${selectedRow?.adults}`}</div>}
           {selectedRow?.children && <div>{`Number of Children : ${selectedRow?.children}`}</div>}
           {selectedRow?.notes && <div className='mt-4'>{`Notes : ${selectedRow?.notes}`}</div>}
           <div className='mt-4'>
-            <input className='cursor-pointer' type='file' onChange={handleFileUpload} />
+            <input className='cursor-pointer text-sm' type='file' onChange={handleFileUpload} />
             <div className='mt-8'>
               <Button type={ButtonType.BLUE} onClick={handleSubmit}>
                 Sumbit
