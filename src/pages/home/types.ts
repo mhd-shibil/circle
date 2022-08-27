@@ -34,4 +34,5 @@ export interface CreateQuotationInput {
   agentId: String;
   fileLink: String;
   notes?: String;
+  price: Number;
 }

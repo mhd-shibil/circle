@@ -146,7 +146,7 @@ const Home: FC = () => {
               ]}
               // Table data needs to be updated for refund
               tableData={getTableData(activeTab)}
-              emptyText='No Transactions'
+              emptyText='No Requests'
               tbodyClassName='h-[calc(100vh-300px)]'
               selectedRow={selectedRow}
               onRowClick={setSelectedRow}
@@ -165,6 +165,7 @@ const Home: FC = () => {
               setShowTransactionSummary(false);
             }}
             selectedRow={selectedRow}
+            refetch={refetch}
           />
         </div>
       </div>
