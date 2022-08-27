@@ -6,10 +6,9 @@ import SideNav from 'components/side-nav/SideNav';
 import TopBar from 'components/topbar/Topbar';
 
 const HomePage = lazy(() => import('pages/home/Home'));
+const EnquiryPage = lazy(() => import('pages/Enquiry'));
 
-const Loader = () => (
-  <div className='w-full h-[calc(100vh-75px)] flex items-center justify-center'>Loading...</div>
-);
+const Loader = () => <div className='w-full h-[calc(100vh-75px)] flex items-center justify-center'>Loading...</div>;
 
 const HomeLayout = () => {
   return (
@@ -21,11 +20,12 @@ const HomeLayout = () => {
           <Suspense fallback={<Loader />}>
             <div className='h-[calc(100vh-74px)] bg-gray-100 overflow-y-auto'>
               <Route path={RoutesPath.HOME} component={HomePage} />
+              <Route path={RoutesPath.ENQUIRY} component={EnquiryPage} />
             </div>
           </Suspense>
         </Switch>
       </div>
-    </div >
+    </div>
   );
 };
 
