@@ -5,7 +5,6 @@ export const FAILED_ICON = '/icons/failed.svg';
 export const CANCELLED_ICON = '/icons/cancelled.svg';
 export const LOADER_GIF = '/images/full-screen-loader.gif';
 
-
 export const CALENDER = 'icons/calender.svg';
 export const CALENDER_SELCTED = 'icons/calender-selected.svg';
 export const STATUS_FILTER = 'icons/status-filter-icon.svg';

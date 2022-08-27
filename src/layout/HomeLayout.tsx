@@ -8,6 +8,7 @@ import TravelForm from 'components/travelform/travelform';
 
 const HomePage = lazy(() => import('pages/home/Home'));
 const EnquiryPage = lazy(() => import('pages/Enquiry'));
+const UserHome = lazy(() => import('pages/home/userHome'));
 
 
 const Loader = () => <div className='w-full h-[calc(100vh-75px)] flex items-center justify-center'>Loading...</div>;
@@ -24,6 +25,7 @@ const HomeLayout = () => {
               <Route path={RoutesPath.HOME} component={HomePage} />
               <Route path={RoutesPath.ENQUIRY} component={EnquiryPage} />
               <Route path={RoutesPath.FORM} component={TravelForm} />
+              <Route path={RoutesPath.USERHOME} component={UserHome} />
             </div>
           </Suspense>
         </Switch>

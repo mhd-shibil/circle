@@ -76,7 +76,9 @@ const FilterModal: React.FC<FilterProps> = ({
               />
               {item.value}
             </div>
-            {selectedTab.index === item.index && <img src='icons/calender.svg' alt='arrow' className='justify-self-end' />}
+            {selectedTab.index === item.index && (
+              <img src='icons/calender.svg' alt='arrow' className='justify-self-end' />
+            )}
           </div>
         ))}
       </div>
