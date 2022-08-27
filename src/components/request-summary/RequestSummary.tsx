@@ -16,9 +16,10 @@ import CircularLoader from 'components/loader/CircularLoader';
 interface RequestSummaryProps {
   onClose?: () => void;
   selectedRow?: any;
+  refetch?: () => void;
 }
 
-const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
+const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow, refetch }) => {
   const [file, setFile] = useState<File>();
   const agentId = useRecoilValue(userDetails);
 
@@ -36,6 +37,7 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
     if (data) {
       onClose();
       toast.success('Quotation Sent');
+      refetch();
     }
   }, [data]);
 
@@ -43,6 +45,7 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
     if (error) {
       onClose();
       toast.error(error.message);
+      refetch();
     }
   }, [error]);
 
@@ -55,6 +58,7 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose, selectedRow }) => {
     const createQuotationInput: CreateQuotationInput = {
       userId: selectedRow?.userId,
       enquiryId: selectedRow?.id,
+      price: selectedRow?.budget,
       agentId: agentId,
       fileLink: data?.getPresignedUrl.key,
       notes: 'dfsdfsdfsdf'
