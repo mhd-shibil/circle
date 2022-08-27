@@ -94,3 +94,20 @@ export const getCustomerEnquiriesQuery = gql`
     }
   }
 `;
+
+export const getDestinationQuery = gql`
+  query getDestinations {
+    getDestinations {
+      id
+      name
+    }
+  }
+`;
+
+export const getUserQuery = gql`
+  query getUser($id: ID!) {
+    getUser(id: $id) {
+      id
+    }
+  }
+`;

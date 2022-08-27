@@ -3,11 +3,19 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { FaArrowRight } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
-import { userDetails } from 'store/atoms/userdetails.atom';
-import { useRecoilValue } from 'recoil';
+// import { userDetails } from 'store/atoms/userdetails.atom';
+// import { useRecoilValue } from 'recoil';
+import { useQuery } from '@apollo/client';
+import { getDestinationQuery } from 'queries/queries';
 
 const userHome: React.FC = () => {
-  const userId = useRecoilValue(userDetails);
+  // const userId = useRecoilValue(userDetails);
+
+  // const { data: userData } = useQuery(getUserQuery, { variables: { id: userId } });
+
+  // if(!userData?.getUser?.id) {
+
+  // }
 
   type OptionType = {
     value: string;
@@ -15,23 +23,20 @@ const userHome: React.FC = () => {
   };
   const history = useHistory();
 
-  const [place, setPlace] = useState<OptionType>(null);
+  const [place, setPlace] = useState(null);
 
-  const places = [
-    { label: 'a', value: 'a' },
-    { label: 'munnar', value: 'munnar' },
-    { label: 'kochi', value: 'kochi' },
-    { label: 'calicut', value: 'calicut' },
-    { label: 'wayanad', value: 'wayanad' },
-    { label: 'vagamon', value: 'vagamon' }
-  ];
+  const { data: destinationPlaces } = useQuery(getDestinationQuery);
+
+  const places = destinationPlaces?.getDestinations?.map((dest) => {
+    return { label: dest?.name, value: dest?.name, id: dest?.id };
+  });
 
   const getValue = (option: OptionType) => {
     setPlace(option);
   };
 
   const navigate = () => {
-    history.push({ pathname: '/user/travelform', state: { destination: place?.value } });
+    history.push({ pathname: '/user/travelform', state: { destination: place?.id } });
   };
 
   return (
