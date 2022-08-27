@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CheckBox from 'components/checkbox/Checkbox';
-import { PaymentStatus, StatusPickerCell } from 'types';
+import { getPaymentStatus, PaymentStatus, StatusPickerCell } from 'types';
 
 type StatusPickerProps = {
   selectedStatuses: StatusPickerCell[];
@@ -28,7 +28,7 @@ const StatusPicker: React.FC<StatusPickerProps> = ({ selectedStatuses, setSelect
               setSelectedStatuses(selectedItems);
             }}
           />
-          <div className='ml-[10px]'>fdfdsf</div>
+          <div className='ml-[10px]'>{getPaymentStatus[item]}</div>
         </div>
       ))}
     </div>

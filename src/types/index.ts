@@ -34,7 +34,7 @@ export enum statusText {
 
 export enum FilterText {
   DATE = 'Date Range',
-  STATUS = 'Status'
+  STATUS = 'Budget'
 }
 
 export type TableCell = {
@@ -65,4 +65,11 @@ export type FilterTabs = {
     normal: string;
     selected: string;
   };
+};
+export const getPaymentStatus = {
+  [PaymentStatus.SUCCESS]: 'Below 5000',
+  [PaymentStatus.IN_PROGRESS]: 'Below 10000',
+  [PaymentStatus.REFUND_INITIATED]: 'Below 20000',
+  [PaymentStatus.FAILED]: 'Below 5000',
+  [PaymentStatus.CANCELLED]: 'Above 100000'
 };
