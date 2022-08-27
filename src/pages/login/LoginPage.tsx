@@ -27,7 +27,7 @@ const Login: React.FC = () => {
           <div className='flex justify-left align-left'>
             <Button
               type={ButtonType.TRANSPARENT_BLUE}
-              onClick={() => history.push('/home')}
+              onClick={() => history.push('user/home')}
               className='w-[400px] text-[blue]'
             >
               <img src='icons/google.svg' alt='' height='20' className='mr-[10px]' />

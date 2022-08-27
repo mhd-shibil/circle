@@ -15,7 +15,7 @@ const EnquiryCard: FC<EnquiryCardProps> = ({ startPlace, destination, date, id, 
   return (
     <div
       className='w-5/6 bg-white rounded-md p-6 mb-6 cursor-pointer shadow-md'
-      onClick={() => history.push('/enquiry/' + id)}
+      onClick={() => history.push('/user/enquiry/' + id)}
       role='presentation'
     >
       <div className='flex flex-row justify-between'>

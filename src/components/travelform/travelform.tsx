@@ -1,11 +1,14 @@
-import { FC } from 'react';
-
+import { FC, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 // import background from 'assets/travelformbg.jpg';
 import Select from 'react-select';
+import { showSuccessToast } from 'utils/toast.util';
 
 const TravelForm: FC = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const history = useHistory();
+
   const options = [
     { value: 'Munnar', label: 'Munnar' },
     { value: 'Goa', label: 'Goa' },
@@ -23,6 +26,7 @@ const TravelForm: FC = () => {
     hotel: '',
     notes: ''
   });
+
   const set = (name) => {
     return ({ target: { value } }) => {
       setValues((oldValues) => ({ ...oldValues, [name]: value }));
@@ -30,8 +34,26 @@ const TravelForm: FC = () => {
   };
 
   function submitfn() {
-    console.log(formvalues);
+    // API to submit form
+    showSuccessToast('Travel Form Submitted Successfully');
+    history.push('/user/enquiries');
   }
+
+  const setFormWithValue = (formKey: string, value: string) => {
+    setValues((oldValues) => ({ ...oldValues, [formKey]: value }));
+  };
+
+  const location: any = useLocation();
+
+  console.log(1, formvalues);
+
+  useEffect(() => {
+    setFormWithValue('Destination', location?.state?.destination);
+  }, [location]);
+
+  useEffect(() => {
+    setFormWithValue('PickupSpot', selectedOption?.value);
+  }, [selectedOption]);
 
   return (
     <div>
@@ -53,9 +75,13 @@ const TravelForm: FC = () => {
               </div>
               <div className='flex flex-col  p-3'>
                 <label className='mb-2 text-gray-500'>Pickup Spot</label>
-
                 <div className='rounded-md bg-slate-100  text-sm p-2 border-solid border-2 border-gray-400 w-1/2'>
-                  <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
+                  <Select
+                    defaultValue={selectedOption}
+                    onChange={setSelectedOption}
+                    options={options}
+                    className='bg-slate-100'
+                  />
                 </div>
               </div>
               <div className='flex flex-col  p-3'>
