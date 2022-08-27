@@ -15,14 +15,16 @@ interface RequestSummaryProps {
 const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
   const [file, setFile] = useState<File>();
 
+  const handleUpload = async (data) => {
+    await fetch(data.getPresignedUrl.url, {
+      method: 'put',
+      body: file,
+      headers: { ContentType: 'application/pdf' }
+    });
+  };
+
   const [getPresignedUrl] = useLazyQuery(GET_PRESIGNED_URL, {
-    onCompleted(data) {
-      fetch(data.getPresignedUrl.url, {
-        method: 'put',
-        body: file,
-        headers: { ContentType: 'application/pdf' }
-      });
-    }
+    onCompleted: handleUpload
   });
 
   const handleFileUpload = (e) => {
