@@ -2,7 +2,6 @@ import Button from 'components/button/Button';
 import { ButtonType } from 'components/button/types';
 import { FC, useEffect, useState } from 'react';
 import { RequestDetails } from 'types';
-import ReactS3Client from 'react-aws-s3-typescript';
 
 import './style.css';
 
@@ -13,12 +12,6 @@ interface RequestSummaryProps {
 
 const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
   const [file, setFile] = useState<File>();
-  const config = {
-    bucketName: process.env.REACT_APP_BUCKET_NAME,
-    region: process.env.REACT_APP_REGION,
-    accessKeyId: process.env.REACT_APP_ACCESS_ID,
-    secretAccessKey: process.env.REACT_APP_ACCESS_KEY
-  };
 
   useEffect(() => {
     if (file) console.log(file);
@@ -28,27 +21,14 @@ const RequestSummary: FC<RequestSummaryProps> = ({ onClose }) => {
     setFile(e.target.files[0]);
   };
 
+  const url =
+    'https://circle-bucket-travel.s3.ap-south-1.amazonaws.com/test?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYYLXSLSB7HHMUQFC%2F20220827%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20220827T094543Z&X-Amz-Expires=1200&X-Amz-Signature=592fcb77dd1e81ed952a0a32eeb8cd10ed299ce6bcfc00d770a773dadf859ff2&X-Amz-SignedHeaders=host';
   const handleSubmit = async () => {
-    const s3 = new ReactS3Client(config);
-    const filename = 'abc';
-
-    try {
-      const res = await s3.uploadFile(file, filename);
-
-      console.log(res);
-      /*
-       * {
-       *   Response: {
-       *     bucket: "bucket-name",
-       *     key: "directory-name/filename-to-be-uploaded",
-       *     location: "https:/your-aws-s3-bucket-url/directory-name/filename-to-be-uploaded"
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
+    return fetch(url, {
+      method: 'put',
+      body: file,
+      headers: { ContentType: 'application/pdf' }
+    });
   };
 
   return (
