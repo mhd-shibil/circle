@@ -4,7 +4,8 @@ const routesPath = {
   HOME: '/home',
   LOGIN: '/login',
   ENQUIRY: '/enquiries',
-  USERHOME: '/userhome'
+  USERHOME: '/userhome',
+  ENQUIRYDETAILS: `/enquiry`
 };
 
 export default routesPath;

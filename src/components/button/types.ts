@@ -3,5 +3,7 @@ export enum ButtonType {
   GREY,
   TRANSPARENT_BLACK,
   TRANSPARENT_BLUE,
-  CUSTOM
+  CUSTOM,
+  GREEN,
+  YELLOW
 }

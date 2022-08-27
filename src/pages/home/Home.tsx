@@ -9,7 +9,6 @@ import { PaymentStatus, StatusPickerCell, RequestDetails } from 'types';
 import RequestSummary from 'components/request-summary/RequestSummary';
 import { newRequestTableHeaders, respondedTableHeaders } from 'constants/table';
 
-
 const Home: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [selectedRow, setSelectedRow] = useState<RequestDetails>(null);
@@ -25,13 +24,17 @@ const Home: FC = () => {
     }))
   );
 
-
-  const convertedTransactionData = [{ id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' }, { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }];
-  const convertRefundsData = [{ id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' }, { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }];
+  const convertedTransactionData = [
+    { id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' },
+    { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }
+  ];
+  const convertRefundsData = [
+    { id: 'probo_jXkRwWECvZcWGFqyGvFNeP_08_25', date: '35-10-2020', amount: '25000', destination: 'Moonar' },
+    { id: 'probo_jXkRwWECvZcdfdsfsdfsdf', date: '3-10-2020', amount: '55000', destination: 'Kodai' }
+  ];
 
   const getTableData = (activeTab) => (activeTab === 1 ? convertedTransactionData : convertRefundsData);
   const getTableHeaders = (activeTab) => (activeTab === 1 ? newRequestTableHeaders : respondedTableHeaders);
-
 
   const clearFilter = () => {
     setStartDate(new Date());
@@ -48,15 +51,8 @@ const Home: FC = () => {
 
   const renderStatusCell = () => (
     <div className='flex items-center'>
-      <img
-        src={'sdsds'}
-        alt='Status Icon'
-        width='20px'
-        className='mr-2'
-        role='presentation'
-        onClick={() => {}}
-      />
-     sdsdsdsd
+      <img src={'sdsds'} alt='Status Icon' width='20px' className='mr-2' role='presentation' onClick={() => {}} />
+      sdsdsdsd
     </div>
   );
 
@@ -72,7 +68,7 @@ const Home: FC = () => {
                 activeTab === 1 && 'text-[#1E3A8A] font-semibold border-b-2 border-[#1E3A8A] rounded-none'
               }`}
             >
-             New Requests
+              New Requests
             </Button>
           </li>
           <li className='mr-2'>
@@ -149,7 +145,6 @@ const Home: FC = () => {
           } absolute right-0 top-0`}
         >
           <RequestSummary
-            onRefundClick={() => console.log('refund clicked')}
             onClose={() => {
               setShowTransactionSummary(false);
             }}
