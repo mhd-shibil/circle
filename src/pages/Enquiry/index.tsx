@@ -16,7 +16,7 @@ const EnquiryPage: FC = () => {
           return (
             <EnquiryCard
               key={enquiry?.id}
-              startPlace={enquiry?.pickUpPoint}
+              // startPlace={enquiry?.pickUpPoint}
               destination={enquiry?.destination?.name}
               date={new Date(enquiry?.startDate)}
               id={enquiry?.id}
