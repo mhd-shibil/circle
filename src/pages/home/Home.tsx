@@ -26,7 +26,7 @@ const Home: FC = () => {
       isSelected: false
     }))
   );
-  const { data } = useQuery(GET_AGENTS_ENQUIRIES);
+  const { data, refetch } = useQuery(GET_AGENTS_ENQUIRIES);
 
   useEffect(() => {
     if (data) console.log(data);
@@ -57,17 +57,8 @@ const Home: FC = () => {
   const getTableData = (activeTab) => (activeTab === 1 ? newRequestData : acceptedPackageData);
   const getTableHeaders = (activeTab) => (activeTab === 1 ? newRequestTableHeaders : respondedTableHeaders);
 
-  const clearFilter = () => {
-    setStartDate(new Date());
-    setEndDate(new Date());
-    setSearchText('');
-    // TODO: optimize initial value
-    setSelectedStatuses(
-      Object.values(PaymentStatus).map((item) => ({
-        type: item,
-        isSelected: false
-      }))
-    );
+  const refetchRequest = () => {
+    refetch();
   };
 
   const renderStatusCell = () => (
@@ -110,9 +101,9 @@ const Home: FC = () => {
             className='flex justify-center items-center text-center text-[14px] text-[#120A29] mr-[14px]
               cursor-pointer border-r border-[#120A29] pr-[12px]'
             role='presentation'
-            onClick={clearFilter}
+            onClick={refetchRequest}
           >
-            Clear Filter
+            Refresh
           </div>
           <div>
             <Filter
