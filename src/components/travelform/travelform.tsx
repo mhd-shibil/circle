@@ -77,8 +77,8 @@ const TravelForm: FC = () => {
       userId: userId,
       pickUpPoint: pickupId[0]?.id,
       destinationId: location?.state?.destination,
-      startDate: new Date(formvalues.Date),
-      returnDate: new Date(formvalues.Date),
+      startDate: selectedDate?.startDate,
+      returnDate: selectedDate?.endDate,
       budget: Number(formvalues.budget),
       adults: Number(formvalues.people),
       children: 0,
@@ -105,13 +105,11 @@ const TravelForm: FC = () => {
       return dest.id === location?.state?.destination;
     });
 
-    console.log(90, destinationValue[0]?.name);
-
     setFormWithValue('Destination', destinationValue[0]?.name);
   }, [location]);
 
   useEffect(() => {
-    setFormWithValue('PickupSpot', selectedOption?.id);
+    setFormWithValue('PickupSpot', selectedOption?.name);
   }, [selectedOption]);
 
   const { control, handleSubmit } = useForm();
@@ -134,8 +132,6 @@ const TravelForm: FC = () => {
     setDatePicker(true);
   };
 
-  console.log(selectedOption);
-
   return (
     <div className=''>
       <form onSubmit={handleSubmit(submitfn)}>
@@ -147,6 +143,7 @@ const TravelForm: FC = () => {
             }}
             className='bg-white m-4 w-1/3'
             label='Destination'
+            value={formvalues.Destination}
           />
 
           <TextField
