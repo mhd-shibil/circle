@@ -1,11 +1,14 @@
 import { useQuery } from '@apollo/client';
 import { getCustomerEnquiriesQuery } from 'queries/queries';
 import { FC } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userDetails } from 'store/atoms/userdetails.atom';
 import EnquiryCard from './components/enquiryCard';
 
 const EnquiryPage: FC = () => {
+  const userId = useRecoilValue(userDetails);
   const { data: customerEnquries } = useQuery(getCustomerEnquiriesQuery, {
-    variables: { userId: '74bd13af-0337-4bdd-a5c5-9535efdf329d' }
+    variables: { userId: userId }
   });
 
   return (

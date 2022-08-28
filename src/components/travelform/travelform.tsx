@@ -9,7 +9,7 @@ import { showSuccessToast } from 'utils/toast.util';
 import { createEnquiryMutation } from 'mutation/mutations';
 import { useRecoilValue } from 'recoil';
 import { userDetails } from 'store/atoms/userdetails.atom';
-import { getDestinationQuery } from 'queries/queries';
+import { getCustomerEnquiriesQuery, getDestinationQuery } from 'queries/queries';
 import { useForm } from 'react-hook-form';
 import RhfInput from 'components/RHFInput/RhfInput';
 import { Button, MenuItem, TextField } from '@mui/material';
@@ -64,7 +64,9 @@ const TravelForm: FC = () => {
     };
   };
 
-  const [createEnquiry] = useMutation(createEnquiryMutation);
+  const [createEnquiry] = useMutation(createEnquiryMutation, {
+    refetchQueries: [getCustomerEnquiriesQuery]
+  });
   const userId = useRecoilValue(userDetails);
 
   function submitfn() {
