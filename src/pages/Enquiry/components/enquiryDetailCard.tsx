@@ -4,7 +4,7 @@ import { ButtonType } from 'components/button/types';
 import PdfViewer from 'components/pdfViewer/pdfViewer';
 import { getAgentQuery } from 'queries/queries';
 import { FC, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import PaymentPopUp from '../../../components/paymentpopup/paymentpopup';
 
 interface EnquiryDetailCardProps {
@@ -16,7 +16,7 @@ const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
   const [paymentModal, setPaymentModalOpen] = useState(false);
   const [pdfViewerModalOPen, setPdfViewerModalOPen] = useState(false);
   const [agentName, setAgentName] = useState<string>('');
-  const history = useHistory();
+  // const history = useHistory();
 
   const cancelFn = () => {
     setPaymentModalOpen(false);

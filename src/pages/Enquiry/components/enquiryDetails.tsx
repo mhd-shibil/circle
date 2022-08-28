@@ -5,18 +5,19 @@ import EnquiryDetailCard from './enquiryDetailCard';
 
 const EnquiryDetails: FC = () => {
   const queryId = location.href.split('/').pop();
-  const { data: enquiryData } = useQuery(getEnquiryQuery, {
+
+  useQuery(getEnquiryQuery, {
     variables: { id: queryId }
   });
   const { data: quotations } = useQuery(getQuotationsQuery, {
     variables: { quotationQueryOption: { enquiryId: queryId } }
   });
 
-  const getFormattedTime = (input: string) => {
-    const time = new Date(input);
+  // const getFormattedTime = (input: string) => {
+  //   const time = new Date(input);
 
-    return time?.getDate() + '/' + time?.getMonth() + '/' + time?.getFullYear();
-  };
+  //   return time?.getDate() + '/' + time?.getMonth() + '/' + time?.getFullYear();
+  // };
 
   return (
     <div className='m-6'>

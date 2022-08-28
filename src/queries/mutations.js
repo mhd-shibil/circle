@@ -7,3 +7,10 @@ export const UPDATE_USER = gql`
     }
   }
 `;
+export const UPDATE_AGENT = gql`
+  mutation ($id: ID!, $input: UpdateAgentInput!) {
+    updateAgent(id: $id, input: $input) {
+      firebaseId
+    }
+  }
+`;

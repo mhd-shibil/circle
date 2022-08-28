@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import RoutesPath from 'routes/RoutesPath';
 import SideNav from 'components/side-nav/SideNav';
 import TopBar from 'components/topbar/Topbar';
 import TravelForm from 'components/travelform/travelform';
 import PdfViewer from 'components/pdfViewer/pdfViewer';
+import { useRecoilValue } from 'recoil';
+import { userDetails } from 'store/atoms/userdetails.atom';
+import routesPath from 'routes/RoutesPath';
 
 const HomePage = lazy(() => import('pages/home/Home'));
 const EnquiryPage = lazy(() => import('pages/Enquiry'));
@@ -15,6 +18,10 @@ const EnquiryDetailsPage = lazy(() => import('pages/Enquiry/components/enquiryDe
 const Loader = () => <div className='w-full h-[calc(100vh-75px)] flex items-center justify-center'>Loading...</div>;
 
 const HomeLayout = () => {
+  const userId = useRecoilValue(userDetails);
+
+  if (!userId) return <Redirect to={routesPath.LOGIN} />;
+
   return (
     <div>
       <SideNav />
