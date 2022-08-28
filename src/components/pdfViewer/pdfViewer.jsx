@@ -1,10 +1,9 @@
 import { React, useState } from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
-import pdf from '../../assets/sample.pdf';
 // import { Modal } from '@mui/material';
 
-const PdfViewer = ({ onClosePdf, onClickPayment }) => {
+const PdfViewer = ({ onClosePdf, onClickPayment, fileLink }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -22,11 +21,13 @@ const PdfViewer = ({ onClosePdf, onClickPayment }) => {
     changePage(1);
   }
 
+  const file = `https://circle-bucket-travel.s3.ap-south-1.amazonaws.com/${fileLink}`;
+
   return (
     <div className='w-screen h-screen bg-opacity-50 top-0 left-0 fixed'>
       <div className=' p-4 mt-4'>
         <div className='flex w-full justify-center'>
-          <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+          <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
             <Page height='800' pageNumber={pageNumber} />
           </Document>
         </div>
@@ -73,7 +74,7 @@ const PdfViewer = ({ onClosePdf, onClickPayment }) => {
           </div>
           <div className='p-2'>
             <button className=' p-2 rounded-md  ' style={{ backgroundColor: 'lightsteelblue' }}>
-              <a href='http://www.africau.edu/images/default/sample.pdf' target='_blank' rel='noreferrer'>
+              <a href={file} target='_blank' rel='noreferrer'>
                 Download
               </a>
             </button>
