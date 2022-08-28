@@ -1,11 +1,9 @@
+import routesPath from 'routes/RoutesPath';
+
 const navItems = [
   {
     label: 'Home',
     path: '/home'
-  },
-  {
-    label: 'Enquiries',
-    path: '/enquiries'
   }
 ];
 
@@ -13,6 +11,10 @@ export const userNavOptions = [
   {
     label: 'Home',
     path: '/user/home'
+  },
+  {
+    label: 'Enquiries',
+    path: routesPath.ENQUIRY
   }
 ];
 

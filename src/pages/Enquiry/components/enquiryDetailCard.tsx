@@ -12,7 +12,7 @@ interface EnquiryDetailCardProps {
   fileLink: string;
 }
 
-const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
+const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId, fileLink }) => {
   const [paymentModal, setPaymentModalOpen] = useState(false);
   const [pdfViewerModalOPen, setPdfViewerModalOPen] = useState(false);
   const [agentName, setAgentName] = useState<string>('');
@@ -37,6 +37,7 @@ const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
       {paymentModal && <PaymentPopUp cancelFn={cancelFn} />}
       {pdfViewerModalOPen && (
         <PdfViewer
+          fileLink={fileLink}
           onClosePdf={() => {
             setPdfViewerModalOPen(false);
           }}

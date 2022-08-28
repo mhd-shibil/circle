@@ -8,6 +8,13 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { getDestinationQuery } from 'queries/queries';
 
+const images = {
+  Munnar: 'images/newimg1.jpg',
+  Goa: 'images/1431681.jpg',
+  Manali: 'images/newimg6.jpg',
+  Paris: 'images/newimg7.jpg'
+};
+
 const userHome: React.FC = () => {
   // const userId = useRecoilValue(userDetails);
 
@@ -39,8 +46,11 @@ const userHome: React.FC = () => {
     history.push({ pathname: '/user/travelform', state: { destination: place?.id } });
   };
 
+  const image = images[place?.value] || 'images/IMG11.jpg';
+
   return (
-    <div className=' h-full flex justify-center '>
+    <div className='relative h-full flex justify-center '>
+      <img src={image} alt='' className='object-cover h-full w-full absolute' />
       <Select
         placeholder='Where to go?'
         options={places}
@@ -48,7 +58,7 @@ const userHome: React.FC = () => {
         className='w-80 mr-10 my-auto'
         onChange={getValue}
       />
-      {place?.value && <FaArrowRight className='my-auto' onClick={navigate} />}
+      {place?.value && <FaArrowRight className='my-auto z-10' onClick={navigate} />}
     </div>
   );
 };
