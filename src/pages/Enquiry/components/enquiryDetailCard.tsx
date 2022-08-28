@@ -30,10 +30,22 @@ const EnquiryDetailCard: FC<EnquiryDetailCardProps> = ({ agentId }) => {
     setAgentName(agentData?.getAgent?.name);
   }, [agentData]);
 
+  console.log(pdfViewerModalOPen);
+
   return (
     <>
       {paymentModal && <PaymentPopUp cancelFn={cancelFn} />}
-      {pdfViewerModalOPen && <PdfViewer />}
+      {pdfViewerModalOPen && (
+        <PdfViewer
+          onClosePdf={() => {
+            setPdfViewerModalOPen(false);
+          }}
+          onClickPayment={() => {
+            setPdfViewerModalOPen(false);
+            setPaymentModalOpen(true);
+          }}
+        />
+      )}
 
       <div className=' border-2 rounded p-4 shadow-md mb-4'>
         <div className='flex flex-col w-fit justify-between'>
