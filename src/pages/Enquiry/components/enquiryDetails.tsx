@@ -1,16 +1,16 @@
 import { useQuery } from '@apollo/client';
-import { getEnquiryQuery, getQuotationsQuery } from 'queries/queries';
+import { getQuotationsQuery } from 'queries/queries';
 import { FC } from 'react';
 import EnquiryDetailCard from './enquiryDetailCard';
 
 const EnquiryDetails: FC = () => {
   const queryId = location.href.split('/').pop();
 
-  useQuery(getEnquiryQuery, {
-    variables: { id: queryId }
-  });
+  // useQuery(getEnquiryQuery, {
+  //   variables: { id: queryId }
+  // });
   const { data: quotations } = useQuery(getQuotationsQuery, {
-    variables: { quotationQueryOption: { enquiryId: queryId } }
+    variables: { quotationQueryOption: { enquiryId: queryId }, fetchPolicy: 'network-only' }
   });
 
   // const getFormattedTime = (input: string) => {
